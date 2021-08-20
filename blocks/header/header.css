@@ -1,0 +1,14 @@
+@import url(__line/header__line.css);
+@import url(__logo/header__logo.css);
+
+.header {
+  margin: 45px 15.625% 0;
+  display: flex;
+  flex-flow: column;
+}
+
+@media screen and (max-width: 812px) {
+  .header {
+    margin: 28px 0 0;
+  }
+}
