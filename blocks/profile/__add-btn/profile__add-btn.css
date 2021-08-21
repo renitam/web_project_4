@@ -1,5 +1,23 @@
 .profile__add-btn {
+  align-self: center;
+  justify-self: flex-end;
   margin: 0;
-  border: #fff;
-  color: #000;
+  height: 50px;
+  width: 150px;
+  border: 2px solid #fff;
+  box-sizing: border-box;
+  border-radius: 2px;
+  background-image: url(../../../images/plusVector.svg);
+  background-color: #000;
+  background-repeat: no-repeat;
+  background-position: center;
 }
+
+
+@media screen and (max-width: 656px) {
+  .profile__add-btn {
+    margin: 36px 0 0;
+    width: 282px;
+  }
+}
+
