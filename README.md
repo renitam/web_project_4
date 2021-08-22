@@ -10,4 +10,4 @@ This project will be a practice exercise in basic JavaScript concepts like query
 
 **Website**
 
-* [Link to project in GitHub](https://xxengineer-practicum.github.io/web_project_4/)
+* [Link to project in GitHub](https://xxengineer-practicum.github.io/web_project_4)
