@@ -11,7 +11,19 @@
   .cards {
     margin: 36px 5.9375% 0;
     width: calc(100% - 11.875%);
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+  }
+}
+
+@media screen and (max-width: 944px) {
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 659px) {
+  .cards {
+    grid-template-columns: minmax(min-content, 282px);
   }
 }
