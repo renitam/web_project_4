@@ -1,0 +1,18 @@
+@import url(__image-wrapper/card__image-wrapper.css);
+@import url(__image/card__image.css);
+@import url(__info-wrapper/card__info-wrapper.css);
+@import url(__like/card__like.css);
+@import url(__title/card__title.css);
+
+.card {
+  margin: 0;
+  background-color: #fff;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: ) {
+
+}
