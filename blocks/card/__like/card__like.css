@@ -1,8 +1,11 @@
 .card__like {
   width: 21px;
   height: 19px;
+  opacity: 1;
+  transition: linear 0.2s opacity;
 }
 
 .card__like:hover {
   opacity: 0.5;
+  cursor: url(../../../images/hover.png), pointer;
 }

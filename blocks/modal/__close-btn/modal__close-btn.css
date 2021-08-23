@@ -1,0 +1,23 @@
+.modal__close-btn {
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-image: url(../../../images/close.png);
+  background-size: contain;
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: -34px;
+  right: -35px;
+}
+
+@media screen and (max-width: 659px) {
+  .modal__close-btn {
+    width: 26px;
+    height: 26px;
+    right: 0;
+    top: -45px;
+  }
+}

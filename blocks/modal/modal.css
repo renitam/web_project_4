@@ -1,0 +1,27 @@
+@import url(__body/modal__body.css);
+@import url(__close-btn/modal__close-btn.css);
+@import url(__input/modal__input.css);
+@import url(__save/modal__save.css);
+@import url(__title/modal__title.css);
+
+.modal {
+  position: fixed;
+  display: none;
+  flex-flow: column;
+  margin: 0;
+  padding: 195px 0 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 98754321;
+  background-color: rgba(0, 0, 0, .5);
+}
+
+@media screen and (max-width: 659px) {
+  .modal {
+    padding: 123px 0 0;
+  }
+}
+
+@import url(_display/modal_display.css);
