@@ -39,7 +39,7 @@ console.log(jobField.textContent);
     nameInput.value = nameField.textContent;
     jobInput.value = jobField.textContent;
 
-    modal.classList.toggle('modal_display');
+    modal.classList.toggle('modal_display_on');
   }
 //
 
