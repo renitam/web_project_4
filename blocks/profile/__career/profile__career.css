@@ -1,17 +1,18 @@
 .profile__career {
   margin: 16px 0 0;
-  width: 100%;
+  width: 415px;
   font-size: 18px;
   line-height: 1;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow-x: hidden;
+  overflow: hidden;
   vertical-align: top;
 }
 
 @media screen and (max-width: 1023px) {
   .profile__career {
-    margin: 14px 0 0;
+    margin: 14px auto 0;
+    width: 282px;
     font-size: 14px;
     text-align: center;
   }

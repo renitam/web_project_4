@@ -3,6 +3,10 @@
   height: 19px;
   opacity: 1;
   transition: linear 0.2s opacity;
+  background-image: url(../../../images/like.svg);
+  padding: 0;
+  background-color: transparent;
+  border: none;
 }
 
 .card__like:hover {

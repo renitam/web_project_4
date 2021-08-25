@@ -8,3 +8,9 @@
     flex-direction: column;
   }
 }
+
+@media screen and (max-width: 659px) {
+  .profile__content {
+    max-width: 282px;
+  }
+}

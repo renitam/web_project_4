@@ -1,6 +1,6 @@
 .modal__close-btn {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -9,8 +9,8 @@
   background-color: transparent;
   border: none;
   position: absolute;
-  top: -34px;
-  right: -35px;
+  top: -40px;
+  right: -40px;
 }
 
 @media screen and (max-width: 659px) {
