@@ -1,16 +1,26 @@
 // Variables
 
+//Profile elements
 let profile = document.querySelector(".profile");
-let modal = document.querySelector(".modal");
-let formElement = modal.querySelector(".modal__form");
-let closeBtn = modal.querySelector(".modal__close-btn");
-let editBtn = profile.querySelector(".profile__edit-btn");
-
-let nameInput =  formElement.querySelector("input[name='name']");
-let jobInput = formElement.querySelector("input[name='career']");
+let editProfileBtn = profile.querySelector(".profile__edit-btn");
+let modalProfile = document.querySelector(".modal__profile");
+let closeProfileBtn = modalProfile.querySelector(".modal__close-btn");
+let formProfileElement = modalProfile.querySelector(".modal__form-profile");
+let nameInput =  formProfileElement.querySelector("input[name='name']");
+let jobInput = formProfileElement.querySelector("input[name='career']");
 let nameField = profile.querySelector(".profile__name");
 let jobField = profile.querySelector(".profile__career");
+
+//Card elements
+let addCardBtn = profile.querySelector(".profile__add-btn");
 let cardsContainer = document.querySelector(".cards");
+let modalCard = document.querySelector(".modal__card");
+let closeCardBtn = modalCard.querySelector(".modal__close-btn");
+let formCardElement = modalCard.querySelector(".model__form-card");
+let placeInput = modalCard.querySelector("input[name='place']");
+let linkInput = modalCard.querySelector("input[name='image']");
+let createBtn = modalCard.querySelector(".modal__save");
+const cardTemplate = document.querySelector('#card').content;
 
 //Card initialization values
 const initialCards = [
@@ -43,7 +53,21 @@ const initialCards = [
 
 // Functions
 
-  function handleFormSubmit(evt) {
+ //~~`*Profile functions*`~~//
+
+  // Open edit profile menu
+  function openProfileForm(evt) {
+
+    // Initialize form values
+    nameInput.value = nameField.textContent;
+    jobInput.value = jobField.textContent;
+
+    // Open modal
+    modalProfile.classList.add("modal_display");
+  }
+
+  // Submit new profile name and job title and close menu
+  function handleProfileSubmit(evt) {
     evt.preventDefault();
 
     // Insert new values using the textContent property
@@ -51,53 +75,74 @@ const initialCards = [
     jobField.textContent = jobInput.value;
 
     // Close modal after saving
-    modal.classList.toggle("modal_display");
+    modalProfile.classList.toggle("modal_display");
   }
 
-  function openForm(evt) {
-
-    // Initialize form values
-    nameInput.value = nameField.textContent;
-    jobInput.value = jobField.textContent;
-
-    // Open modal
-    modal.classList.add("modal_display");
-  }
-
-  function closeForm(evt) {
+  // Close edit profile menu w/o changes
+  function closeProfileForm(evt) {
 
     // Close modal
-    modal.classList.remove("modal_display");
+    modalProfile.classList.remove("modal_display");
   }
 
-  function createCard(data) {
-    console.log(data.name);
 
+ //~~`*Card functions*`~~//
+  // Open add card modal
+  function openCardForm(evt) {
+    modalCard.classList.add("modal_display");
+  }
+
+  // Close card modal w/o saving
+  function closeCardForm(evt) {
+    modalCard.classList.remove("modal_display");
+  }
+
+  // Create a new card
+  function createCard(data) {
+
+    console.log(data);
     // Grab and clone card template for new card element
-    const cardTemplate = document.querySelector('#card').content;
-    const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+    let cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
       // Set title to name input
-      const cardTitleElement = cardElement.querySelector(".card__title");
-      console.log(cardTitleElement);
+      let cardTitleElement = cardElement.querySelector(".card__title");
       cardTitleElement.textContent = data.name;
 
       // Set image to link input
-      const cardImageElement = cardElement.querySelector(".card__image");
+      let cardImageElement = cardElement.querySelector(".card__image");
       cardImageElement.src = data.link;
 
     return cardElement;
   }
 
+  // Add new card to cards section
   function addCard(data) {
     cardsContainer.prepend(data);
+  }
+
+  function handleCardSubmit(evt) {
+    evt.preventDefault();
+
+    //Create an array of the placeInput & imageInput vars
+    let cardDetails = {'name': placeInput.value, 'image': linkInput.value};
+    console.log(cardDetails);
+
+    addCard(createCard(cardDetails));
+
   }
 //
 
 // Scripts
 
- initialCards.forEach((card) => addCard(createCard(card)));
-formElement.addEventListener("submit", handleFormSubmit);
-closeBtn.addEventListener("click", closeForm);
-editBtn.addEventListener("click", openForm);
+//Profile calls
+formProfileElement.addEventListener("submit", handleProfileSubmit);
+closeProfileBtn.addEventListener("click", closeProfileForm);
+editProfileBtn.addEventListener("click", openProfileForm);
+
+//Card calls
+initialCards.forEach((card) => addCard(createCard(card)));
+addCardBtn.addEventListener("click", openCardForm);
+closeCardBtn.addEventListener("click", closeCardForm);
+createBtn.addEventListener("submit", handleCardSubmit);
+
 //

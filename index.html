@@ -30,14 +30,26 @@
       <section class="cards">
       </section>
 
-      <section class="modal">
+      <section class="modal modal__profile">
         <div class="modal__body">
-          <form class="modal__form" name="profile">
+          <form class="modal__form modal__form-profile" name="profile">
             <button type="button" class="modal__close-btn link" aria-label="close edit profile menu"></button>
             <h2 class="modal__title">Edit profile</h2>
             <input type="text" name="name" id="name" class="modal__input">
             <input type="text" name="career" id="career" class="modal__input">
-            <button type="submit" class="modal__save">Save</button>
+            <button type="submit" class="modal__save" id="profile">Save</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="modal modal__card">
+        <div class="modal__body">
+          <form class="modal__form modal__form-card" name="place">
+            <button type="button" class="modal__close-btn link" aria-label="close add place menu"></button>
+            <h2 class="modal__title">New place</h2>
+            <input type="text" name="place" id="place" class="modal__input" placeholder="Title">
+            <input type="text" name="image" id="career" class="modal__input" placeholder="Image link">
+            <button type="submit" class="modal__save">Create</button>
           </form>
         </div>
       </section>
