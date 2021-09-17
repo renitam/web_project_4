@@ -16,7 +16,7 @@ let addCardBtn = profile.querySelector(".profile__add-btn");
 let cardsContainer = document.querySelector(".cards");
 let modalCard = document.querySelector(".modal__card");
 let closeCardBtn = modalCard.querySelector(".modal__close-btn");
-let formCardElement = modalCard.querySelector(".model__form-card");
+let formCardElement = modalCard.querySelector(".modal__form-card");
 let placeInput = modalCard.querySelector("input[name='place']");
 let linkInput = modalCard.querySelector("input[name='image']");
 let createBtn = modalCard.querySelector(".modal__save");
@@ -140,9 +140,9 @@ closeProfileBtn.addEventListener("click", closeProfileForm);
 editProfileBtn.addEventListener("click", openProfileForm);
 
 //Card calls
-initialCards.forEach((card) => addCard(createCard(card)));
+initialCards.reverse().forEach((card) => addCard(createCard(card)));
 addCardBtn.addEventListener("click", openCardForm);
 closeCardBtn.addEventListener("click", closeCardForm);
-createBtn.addEventListener("submit", handleCardSubmit);
+formCardElement.addEventListener("submit", handleCardSubmit);
 
 //
