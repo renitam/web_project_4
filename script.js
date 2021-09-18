@@ -89,6 +89,8 @@ const initialCards = [
  //~~`*Card functions*`~~//
   // Open add card modal
   function openCardForm(evt) {
+    placeInput.value = "";
+    linkInput.value = "";
     modalCard.classList.add("modal_display");
   }
 
@@ -128,6 +130,8 @@ const initialCards = [
     console.log(cardDetails);
 
     addCard(createCard(cardDetails));
+
+    closeCardForm();
 
   }
 //
