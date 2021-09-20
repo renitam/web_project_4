@@ -9,20 +9,20 @@
 @import url(__save/modal__save.css);
 @import url(__title/modal__title.css);
 
-@-webkit-keyframes fadeOut {
+@-webkit-keyframes fadeout {
   from { opacity: 1; }
     to { opacity: 0; }
 }
 
-@keyframes fadeOut {
+@keyframes fadeout {
   from { opacity: 1; }
     to { opacity: 0; }
 }
 
 .modal {
   position: fixed;
-  -webkit-animation: fadeOut 0.5s;
-  animation: fadeOut 0.5s;
+  -webkit-animation: fadeout 0.5s;
+  animation: fadeout 0.5s;
   display: none;
   margin: 0;
   justify-content: center;
