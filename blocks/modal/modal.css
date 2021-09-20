@@ -21,8 +21,9 @@
 
 .modal {
   position: fixed;
+  -webkit-animation: fadeOut 0.5s;
+  animation: fadeOut 0.5s;
   display: none;
-  opacity: 1;
   margin: 0;
   justify-content: center;
   flex-flow: column;
@@ -32,9 +33,4 @@
   bottom: 0;
   z-index: 98754321;
   background-color: rgba(0, 0, 0, .5);
-}
-
-.modal:before {
-  -webkit-animation: fadeOut 0.5s;
-  animation: fadeOut 0.5s;
 }
