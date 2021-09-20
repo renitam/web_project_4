@@ -9,9 +9,9 @@ const editProfileBtn = profile.querySelector(".profile__edit-btn");
 const addCardBtn = profile.querySelector(".profile__add-btn");
 
 //Edit Profile Modal elements
-const modalProfile = document.querySelector(".modal__profile");
+const modalProfile = document.querySelector(".modal_type_profile");
 const closeProfileBtn = modalProfile.querySelector(".modal__close-btn");
-const formProfileElement = modalProfile.querySelector(".modal__form-profile");
+const formProfileElement = modalProfile.querySelector(".modal__form_type_profile");
 const nameInput =  formProfileElement.querySelector("input[name='name']");
 const jobInput = formProfileElement.querySelector("input[name='career']");
 
@@ -20,16 +20,16 @@ const jobInput = formProfileElement.querySelector("input[name='career']");
 const cardsContainer = document.querySelector(".cards");
 
 //Add Card Modal elements
-const modalCard = document.querySelector(".modal__card");
+const modalCard = document.querySelector(".modal_type_card");
 const closeCardBtn = modalCard.querySelector(".modal__close-btn");
-const formCardElement = modalCard.querySelector(".modal__form-card");
+const formCardElement = modalCard.querySelector(".modal__form_type_card");
 const placeInput = modalCard.querySelector("input[name='place']");
 const linkInput = modalCard.querySelector("input[name='image']");
 const createBtn = modalCard.querySelector(".modal__save");
 const cardTemplate = document.querySelector('#card').content.querySelector('.card');
 
 //Image Popup Modal elements
-const modalPreview = document.querySelector(".modal__preview");
+const modalPreview = document.querySelector(".modal_type_preview");
 const modalImage = modalPreview.querySelector(".modal__body_type_preview").querySelector(".modal__image");
 const modalCaption = modalPreview.querySelector(".modal__caption");
 const closePreviewBtn = modalPreview.querySelector(".modal__close-btn");
@@ -100,6 +100,7 @@ const initialCards = [
 //~~`*Image preview functions*`~~//
   function openImagePreview(evt) {
     modalImage.src = evt.target.src;
+    modalImage.alt = "Image preview of " + evt.target.closest(".card").querySelector(".card__title").textContent;
     modalCaption.textContent = evt.target.closest(".card").querySelector(".card__title").textContent;
 
     modalPreview.classList.add("modal_display");
