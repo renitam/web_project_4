@@ -1,5 +1,6 @@
 @import url(__body/modal__body.css);
 @import url(__body/_type/modal__body_type_preview.css);
+@import url(__caption/modal__caption.css);
 @import url(__close-btn/modal__close-btn.css);
 @import url(__close-btn/_type/modal__close-btn_type_preview.css);
 @import url(__form/modal__form.css);
@@ -8,9 +9,20 @@
 @import url(__save/modal__save.css);
 @import url(__title/modal__title.css);
 
+@-webkit-keyframes fadeOut {
+  from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+    to { opacity: 0; }
+}
+
 .modal {
   position: fixed;
   display: none;
+  opacity: 1;
   margin: 0;
   justify-content: center;
   flex-flow: column;
@@ -22,10 +34,7 @@
   background-color: rgba(0, 0, 0, .5);
 }
 
-@media screen and (max-width: 659px) {
-  .modal {
-    padding: auto 0;
-  }
+.modal:before {
+  -webkit-animation: fadeOut 0.5s;
+  animation: fadeOut 0.5s;
 }
-
-@import url(__image/modal__image.css);

@@ -31,6 +31,7 @@ const cardTemplate = document.querySelector('#card').content.querySelector('.car
 //Image Popup Modal elements
 const modalPreview = document.querySelector(".modal__preview");
 const modalImage = modalPreview.querySelector(".modal__body_type_preview").querySelector(".modal__image");
+const modalCaption = modalPreview.querySelector(".modal__caption");
 const closePreviewBtn = modalPreview.querySelector(".modal__close-btn");
 
 //Card initialization values
@@ -99,6 +100,8 @@ const initialCards = [
 //~~`*Image preview functions*`~~//
   function openImagePreview(evt) {
     modalImage.src = evt.target.src;
+    modalCaption.textContent = evt.target.closest(".card").querySelector(".card__title").textContent;
+
     modalPreview.classList.add("modal_display");
   }
 
