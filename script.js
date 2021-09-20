@@ -114,9 +114,15 @@ const initialCards = [
       let cardImageElement = cardElement.querySelector(".card__image");
       cardImageElement.src = data.link;
 
+      // Make card like buttons clickable & save like
       cardElement.querySelector(".card__like").addEventListener("click", function (evt) {
         evt.target.classList.toggle("card__like_active");
     });
+
+      // Maker trash cans clickable and remove card
+      cardElement.querySelector(".card__trash").addEventListener("click", function(evt) {
+        evt.target.closest(".card").remove();
+      });
 
     return cardElement;
   }
