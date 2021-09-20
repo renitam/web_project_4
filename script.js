@@ -160,10 +160,9 @@ const initialCards = [
 
   function handleCardSubmit(evt) {
     evt.preventDefault();
-
+    console.log(linkInput);
     //Create an array of the placeInput & imageInput vars
     let cardDetails = {'name': placeInput.value, 'image': linkInput.value};
-    console.log(cardDetails);
 
     addCard(createCard(cardDetails));
 
