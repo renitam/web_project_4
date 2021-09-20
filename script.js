@@ -1,27 +1,37 @@
 // Variables
 
 //Profile elements
-let profile = document.querySelector(".profile");
-let editProfileBtn = profile.querySelector(".profile__edit-btn");
-let modalProfile = document.querySelector(".modal__profile");
-let closeProfileBtn = modalProfile.querySelector(".modal__close-btn");
-let formProfileElement = modalProfile.querySelector(".modal__form-profile");
-let nameInput =  formProfileElement.querySelector("input[name='name']");
-let jobInput = formProfileElement.querySelector("input[name='career']");
-let nameField = profile.querySelector(".profile__name");
-let jobField = profile.querySelector(".profile__career");
+const profile = document.querySelector(".profile");
+const nameField = profile.querySelector(".profile__name");
+const jobField = profile.querySelector(".profile__career");
+
+const editProfileBtn = profile.querySelector(".profile__edit-btn");
+const addCardBtn = profile.querySelector(".profile__add-btn");
+
+//Edit Profile Modal elements
+const modalProfile = document.querySelector(".modal__profile");
+const closeProfileBtn = modalProfile.querySelector(".modal__close-btn");
+const formProfileElement = modalProfile.querySelector(".modal__form-profile");
+const nameInput =  formProfileElement.querySelector("input[name='name']");
+const jobInput = formProfileElement.querySelector("input[name='career']");
+
 
 //Card elements
-let addCardBtn = profile.querySelector(".profile__add-btn");
-let cardsContainer = document.querySelector(".cards");
-let modalCard = document.querySelector(".modal__card");
-let closeCardBtn = modalCard.querySelector(".modal__close-btn");
-let formCardElement = modalCard.querySelector(".modal__form-card");
-let placeInput = modalCard.querySelector("input[name='place']");
-let linkInput = modalCard.querySelector("input[name='image']");
-let createBtn = modalCard.querySelector(".modal__save");
+const cardsContainer = document.querySelector(".cards");
+
+//Add Card Modal elements
+const modalCard = document.querySelector(".modal__card");
+const closeCardBtn = modalCard.querySelector(".modal__close-btn");
+const formCardElement = modalCard.querySelector(".modal__form-card");
+const placeInput = modalCard.querySelector("input[name='place']");
+const linkInput = modalCard.querySelector("input[name='image']");
+const createBtn = modalCard.querySelector(".modal__save");
 const cardTemplate = document.querySelector('#card').content.querySelector('.card');
-likeButtons = cardsContainer.querySelectorAll(".card__like");
+
+//Image Popup Modal elements
+const modalPreview = document.querySelector(".modal__preview");
+const modalImage = modalPreview.querySelector(".modal__body_type_preview").querySelector(".modal__image");
+const closePreviewBtn = modalPreview.querySelector(".modal__close-btn");
 
 //Card initialization values
 const initialCards = [
@@ -86,6 +96,16 @@ const initialCards = [
     modalProfile.classList.remove("modal_display");
   }
 
+//~~`*Image preview functions*`~~//
+  function openImagePreview(evt) {
+    modalImage.src = evt.target.src;
+    modalPreview.classList.add("modal_display");
+  }
+
+  function closeImagePreview(evt) {
+    modalPreview.classList.remove("modal_display");
+  }
+
 
  //~~`*Card functions*`~~//
 
@@ -119,10 +139,13 @@ const initialCards = [
         evt.target.classList.toggle("card__like_active");
     });
 
-      // Maker trash cans clickable and remove card
+      // Make trash cans clickable and remove card
       cardElement.querySelector(".card__trash").addEventListener("click", function(evt) {
         evt.target.closest(".card").remove();
       });
+
+      // Make images clickable and view image preview
+      cardElement.querySelector(".card__image").addEventListener("click", openImagePreview);
 
     return cardElement;
   }
@@ -144,12 +167,6 @@ const initialCards = [
     closeCardForm();
   }
 
- //~~`*Card functions*`~~//
-
-  // Click like button and save input
-  function saveLike(evt) {
-    console.log(EventTarget);
-  }
 //
 
 // Scripts
@@ -164,5 +181,8 @@ initialCards.reverse().forEach((card) => addCard(createCard(card)));
 addCardBtn.addEventListener("click", openCardForm);
 closeCardBtn.addEventListener("click", closeCardForm);
 formCardElement.addEventListener("submit", handleCardSubmit);
+
+//Image preview calls
+closePreviewBtn.addEventListener("click", closeImagePreview);
 
 //

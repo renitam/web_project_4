@@ -1,6 +1,9 @@
 @import url(__body/modal__body.css);
+@import url(__body/_type/modal__body_type_preview.css);
 @import url(__close-btn/modal__close-btn.css);
+@import url(__close-btn/_type/modal__close-btn_type_preview.css);
 @import url(__form/modal__form.css);
+@import url(__image/modal__image.css);
 @import url(__input/modal__input.css);
 @import url(__save/modal__save.css);
 @import url(__title/modal__title.css);
@@ -24,3 +27,5 @@
     padding: auto 0;
   }
 }
+
+@import url(__image/modal__image.css);
