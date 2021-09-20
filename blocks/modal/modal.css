@@ -9,21 +9,9 @@
 @import url(__save/modal__save.css);
 @import url(__title/modal__title.css);
 
-@-webkit-keyframes fadeout {
-  from { opacity: 1; }
-    to { opacity: 0; }
-}
-
-@keyframes fadeout {
-  from { opacity: 1; }
-    to { opacity: 0; }
-}
-
 .modal {
+  display: flex;
   position: fixed;
-  -webkit-animation: fadeout 0.5s;
-  animation: fadeout 0.5s;
-  display: none;
   margin: 0;
   justify-content: center;
   flex-flow: column;
@@ -33,4 +21,8 @@
   bottom: 0;
   z-index: 98754321;
   background-color: rgba(0, 0, 0, .5);
+  transition: visibility 0.2s, opacity 0.2s linear;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }

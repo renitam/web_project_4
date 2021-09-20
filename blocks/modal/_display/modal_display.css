@@ -1,15 +1,5 @@
-@-webkit-keyframes fadein {
-  from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes fadein {
-  from { opacity: 0; }
-    to { opacity: 1; }
-}
-
 .modal_display {
-  display: flex;
-  -webkit-animation: fadein 0.5s;
-  animation: fadein 0.5s;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: unset;
 }
