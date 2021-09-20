@@ -20,7 +20,8 @@ let formCardElement = modalCard.querySelector(".modal__form-card");
 let placeInput = modalCard.querySelector("input[name='place']");
 let linkInput = modalCard.querySelector("input[name='image']");
 let createBtn = modalCard.querySelector(".modal__save");
-const cardTemplate = document.querySelector('#card').content;
+const cardTemplate = document.querySelector('#card').content.querySelector('.card');
+likeButtons = cardsContainer.querySelectorAll(".card__like");
 
 //Card initialization values
 const initialCards = [
@@ -87,6 +88,7 @@ const initialCards = [
 
 
  //~~`*Card functions*`~~//
+
   // Open add card modal
   function openCardForm(evt) {
     placeInput.value = "";
@@ -101,10 +103,8 @@ const initialCards = [
 
   // Create a new card
   function createCard(data) {
-
-    console.log(data);
     // Grab and clone card template for new card element
-    let cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+    let cardElement = cardTemplate.cloneNode(true);
 
       // Set title to name input
       let cardTitleElement = cardElement.querySelector(".card__title");
@@ -113,6 +113,10 @@ const initialCards = [
       // Set image to link input
       let cardImageElement = cardElement.querySelector(".card__image");
       cardImageElement.src = data.link;
+
+      cardElement.querySelector(".card__like").addEventListener("click", function (evt) {
+        evt.target.classList.toggle("card__like_active");
+    });
 
     return cardElement;
   }
@@ -132,7 +136,13 @@ const initialCards = [
     addCard(createCard(cardDetails));
 
     closeCardForm();
+  }
 
+ //~~`*Card functions*`~~//
+
+  // Click like button and save input
+  function saveLike(evt) {
+    console.log(EventTarget);
   }
 //
 
