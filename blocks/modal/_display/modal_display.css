@@ -1,5 +1,5 @@
 .modal_display {
   opacity: 1;
   visibility: visible;
-  pointer-events: unset;
+  pointer-events: fill;
 }
