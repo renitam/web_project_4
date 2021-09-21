@@ -72,9 +72,13 @@ function openModal(modal) {
   modal.classList.add("modal_display");
 }
 
+function closeModal(modal) {
+  modal.classList.remove("modal_display");
+}
+
 // Close card modal w/o saving
-function closeModal(evt) {
-  evt.target.closest(".modal").classList.remove("modal_display");
+function initializeCloseBtns(evt) {
+  closeModal(evt.target.closest(".modal"));
 }
 
 /* Profile functions* */
@@ -98,7 +102,7 @@ function handleProfileSubmit(evt) {
   jobField.textContent = jobInput.value;
 
   // Close modal after saving
-  closeModal();
+  closeModal(modalProfile);
 }
 
 // Close edit profile menu w/o changes
@@ -108,9 +112,10 @@ function handleProfileSubmit(evt) {
 // Open preview modal
 function openImgPreview(evt) {
   //Idk how to set up the attr the reviewer suggested here, so leaving as is.
-  const previewTitle = evt.target.closest(".card").querySelector(".card__title");
+  const previewTitle = evt.target
+    .closest(".card")
+    .querySelector(".card__title");
   const previewImage = evt.target;
-
 
   previewImg.src = previewImage.src;
   // Using title for alt since title already describes > why alt is left out
@@ -127,8 +132,6 @@ function openCardForm(evt) {
   formCardEl.reset();
   openModal(modalCard);
 }
-
-
 
 // Create a new card
 function createCard(data) {
@@ -178,16 +181,14 @@ function handleCardSubmit(evt) {
 
   addCard(createCard(cardDetails));
 
-  closeModal();
+  closeModal(modalCard);
 }
-
-//
 
 // Scripts
 
 //Close modal
-closeModalBtns.forEach( button => {
-  button.addEventListener("click", closeModal);
+closeModalBtns.forEach((button) => {
+  button.addEventListener("click", initializeCloseBtns);
 });
 
 //Profile calls
@@ -198,5 +199,3 @@ editProfileBtn.addEventListener("click", openProfileForm);
 initialCards.reverse().forEach((card) => addCard(createCard(card)));
 addCardBtn.addEventListener("click", openCardForm);
 formCardEl.addEventListener("submit", handleCardSubmit);
-
-//
