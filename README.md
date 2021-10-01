@@ -1,9 +1,9 @@
-# Project 5: Around The U.S.
+# Project 6: Around The U.S.
 
 ### Overview
-This project will be a practice exercise in basic JavaScript concepts like query selectors & event listeners. We will also be taking our first shot at styling form elements reviewed in Sprint 2.
+This project will be a practice exercise in basic JavaScript concepts like form validation and DOM manipulation.
 
-This is an expansion of project 4 boasting more in-depth JavaScript functionality.
+This is an expansion of projects 4 & 5 boasting more in-depth JavaScript functionality.
 Namely: classList, clone, add/remove/toggle, evt, loops, conditions, arrays and more DOM skills.
 
 
