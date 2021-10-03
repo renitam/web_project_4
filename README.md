@@ -4,7 +4,7 @@
 This project will be a practice exercise in basic JavaScript concepts like form validation and DOM manipulation.
 
 This is an expansion of projects 4 & 5 boasting more in-depth JavaScript functionality.
-Namely: classList, clone, add/remove/toggle, evt, loops, conditions, arrays and more DOM skills.
+Namely: form validation, classList, clone, add/remove/toggle, evt, loops, conditions, arrays and more DOM skills.
 
 
 **Figma**
