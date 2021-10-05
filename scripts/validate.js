@@ -67,8 +67,19 @@ function enableValidation(settings) {
   });
 }
 
-function resetValidation(modal, settings) {
+export function resetValidation(modal, settings = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__save",
+  inactiveButtonClass: "modal__save_inactive",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__input-error"
+}) {
   const inputs = modal.querySelectorAll(settings.inputSelector);
+
+  inputs.forEach( (input) => {
+    hideInputError(modal, input, settings);
+  });
 }
 
 // Scripts
