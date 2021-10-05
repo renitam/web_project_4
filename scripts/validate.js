@@ -1,27 +1,27 @@
 // Functions
 
 // Add error message to modal input.
-function showInputError (modalEl, inputEl, errorMessage) {
-  const errorEl = modalEl.querySelector(`.modal__input-error_${inputEl.id}`);
-  inputEl.classList.add("modal__input_type_error");
+function showInputError (modalEl, inputEl, errorMessage, settings) {
+  const errorEl = modalEl.querySelector("."+settings.errorClass+"_"+inputEl.id);
+  inputEl.classList.add(settings.inputErrorClass);
   errorEl.textContent = errorMessage;
-  errorEl.classList.add("modal__input-error_active");
-};
+  errorEl.classList.add(settings.errorClass+"_active");
+}
 
 // Remove error message from modal input.
-function hideInputError (modalEl, inputEl) {
-  const errorEl = modalEl.querySelector(`.modal__input-error_${inputEl.id}`);
-  inputEl.classList.remove("modal__input_type_error");
-  errorEl.classList.remove("modal__input-error_active");
+function hideInputError (modalEl, inputEl, settings) {
+  const errorEl = modalEl.querySelector("."+settings.errorClass+"_"+inputEl.id);
+  inputEl.classList.remove(settings.inputErrorClass);
   errorEl.textContent = "";
+  errorEl.classList.remove(settings.errorClass+"_active");
 }
 
 //  Check input validity and toggle error message.
-function checkInputValidity (modalEl, inputEl) {
+function checkInputValidity (modalEl, inputEl, settings) {
   if (!inputEl.validity.valid) {
-    showInputError(modalEl, inputEl, inputEl.validationMessage);
+    showInputError(modalEl, inputEl, inputEl.validationMessage, settings);
   } else {
-    hideInputError(modalEl, inputEl);
+    hideInputError(modalEl, inputEl, settings);
   }
 }
 
@@ -52,7 +52,7 @@ function setEventListeners (formEl, settings) {
 
   inputList.forEach( (inputEl) => {
     inputEl.addEventListener("input", function () {
-      checkInputValidity(formEl, inputEl);
+      checkInputValidity(formEl, inputEl, settings);
       toggleButtonState(inputList, buttonEl, settings.inactiveButtonClass);
     });
   });
@@ -78,8 +78,8 @@ enableValidation({
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__save",
-  inactiveButtonClass: ".modal__save_inactive",
-  inputErrorClass: ".modal__input_type_error",
-  errorClass: ".modal__input-error"
+  inactiveButtonClass: "modal__save_inactive",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__input-error"
 });
 

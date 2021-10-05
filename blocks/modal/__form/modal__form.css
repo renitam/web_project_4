@@ -3,3 +3,9 @@
   flex-flow: column;
   max-width: 430px;
 }
+
+@media screen and (max-width: 659px) {
+  .modal__form {
+    max-width: 282px;
+  }
+}
