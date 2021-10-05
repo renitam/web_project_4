@@ -33,40 +33,53 @@ function hasInvalidInput (inputList) {
 }
 
 // Activate or deactivate button element based on input validity.
-function toggleButtonState (inputList, buttonEl) {
+function toggleButtonState (inputList, buttonEl, inactiveButtonClass) {
   if (hasInvalidInput(inputList)) {
-    buttonEl.classList.add("modal__save_inactive");
+    buttonEl.classList.add(inactiveButtonClass);
     buttonEl.setAttribute("disabled", "");
   } else {
-    buttonEl.classList.remove("modal__save_inactive");
+    buttonEl.classList.remove(inactiveButtonClass);
     buttonEl.removeAttribute("disabled", "");
   }
 }
 
 // Add error message events to inputs of modal.
-function setEventListeners (modalEl) {
-  const inputList = Array.from(modalEl.querySelectorAll(".modal__input"));
-  const buttonEl = modalEl.querySelector(".modal__save");
-  toggleButtonState(inputList,  buttonEl);
+function setEventListeners (formEl, settings) {
+  const inputList = Array.from(formEl.querySelectorAll(settings.inputSelector));
+  const buttonEl = formEl.querySelector(settings.submitButtonSelector);
+
+  toggleButtonState(inputList,  buttonEl, settings.inactiveButtonClass);
 
   inputList.forEach( (inputEl) => {
     inputEl.addEventListener("input", function () {
-      checkInputValidity(modalEl, inputEl);
-      toggleButtonState(inputList, buttonEl);
+      checkInputValidity(formEl, inputEl);
+      toggleButtonState(inputList, buttonEl, settings.inactiveButtonClass);
     });
   });
 }
 
-function enableValidation() {
-  const modalList = Array.from(document.querySelectorAll(".modal__form"));
-  modalList.forEach((modalEl) => {
-    modalList.forEach((modal) => {
-      setEventListeners(modal);
-    });
+function enableValidation(settings) {
+  // find all forms using formSelector in settings object
+  const formList = Array.from(document.querySelectorAll(settings.formSelector));
+  // for each form, add validation listeners to inputs
+  formList.forEach( (form) => {
+    setEventListeners(form, settings);
   });
+}
+
+function resetValidation(modal, settings) {
+  const inputs = modal.querySelectorAll(settings.inputSelector);
 }
 
 // Scripts
 
 //Form Validation
-enableValidation();
+enableValidation({
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__save",
+  inactiveButtonClass: ".modal__save_inactive",
+  inputErrorClass: ".modal__input_type_error",
+  errorClass: ".modal__input-error"
+});
+

@@ -207,7 +207,7 @@ closeModalBtns.forEach((button) => {
 // When user clicks outside of modal, close modal window.
 allModals.forEach( (modal) => {
   modal.addEventListener("click", (evt) => {
-    if (evt.target.matches(".modal")) {
+    if (evt.target.classList.contains(".modal")) {
       closeModal(modal);
     }
   });
