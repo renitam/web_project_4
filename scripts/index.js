@@ -1,3 +1,4 @@
+import { FormValidator } from "./FormValidator.js";
 import { resetValidation } from "./validate.js";
 
 // Variables
@@ -180,22 +181,17 @@ function createCard(data) {
     .querySelector(".card__image")
     .addEventListener("click", openImgPreview);
 
-  return cardEl;
+  cardsContainer.prepend(cardEl);
 }
 
 //Close card modal
-
-// Add new card to cards section
-function addCard(data) {
-  cardsContainer.prepend(data);
-}
 
 function handleCardSubmit(evt) {
   evt.preventDefault();
   //Create an array of the placeInput & imageInput vars
   const cardDetails = { name: placeInput.value, link: linkInput.value };
 
-  addCard(createCard(cardDetails));
+  createCard(cardDetails);
 
   closeModal(modalCard);
 }
@@ -223,7 +219,23 @@ formProfileEl.addEventListener("submit", handleProfileSubmit);
 editProfileBtn.addEventListener("click", openProfileForm);
 
 //Card calls
-initialCards.reverse().forEach((card) => addCard(createCard(card)));
+initialCards.reverse().forEach( (card) => createCard(card));
 addCardBtn.addEventListener("click", openCardForm);
 formCardEl.addEventListener("submit", handleCardSubmit);
 
+
+// Validation calls
+const formValidationConfig = {
+  formSel: ".modal__form",
+  inputSel: ".modal__input",
+  submitBtnSel: ".modal__save",
+  inactiveBtnClass: "modal__save_inactive",
+  inputErrClass: "modal__input_type_error",
+  errorClass: "modal__input-error"
+}
+
+const addFormValidator = new FormValidator(formValidationConfig, modalCard);
+addFormValidator.enableValidation;
+
+const editFormValidator = new FormValidator(formValidationConfig, modalProfile);
+editFormValidator.enableValidation;
