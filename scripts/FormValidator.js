@@ -19,24 +19,24 @@ class FormValidator {
   }
 
   _showInputErr (inputEl) {
-    const errorEl = this._formEl.querySelector("."+this._errorClass+"_"+inputEl.id);
+    this._errorEl = this._formEl.querySelector("."+this._errorClass+"_"+inputEl.id);
     inputEl.classList.add(this._inputErrClass);
-    errorEl.textContent = errorMsg;
-    errorEl.classList.add(this._errorClass+"_active");
+    this._errorEl.textContent = errorMsg;
+    this._errorEl.classList.add(this._errorClass+"_active");
   }
 
   _hideInputErr (inputEl) {
-    const errorEl = modalEl.querySelector("."+this._errorClass+"_"+inputEl.id);
+    this._errorEl = modalEl.querySelector("."+this._errorClass+"_"+inputEl.id);
     inputEl.classList.remove(this._inputErrClass);
-    errorEl.textContent = "";
-    errorEl.classList.remove(this._errorClass+"_active");
+    this._errorEl.textContent = "";
+    this._errorEl.classList.remove(this._errorClass+"_active");
   }
 
   _setEventListeners () {
-    const inputList = Array.from(this._formEl.querySelectorAll(this._inputSel));
-    const buttonEl = this._formEl.querySelector(this._submitBtnSel);
+    this._inputList = Array.from(this._formEl.querySelectorAll(this._inputSel));
+    this._buttonEl = this._formEl.querySelector(this._submitBtnSel);
 
-    _toggleBtnState(inputList, buttonEl);
+    _toggleBtnState(this._inputList, this._buttonEl);
   }
 
   _toggleBtnState (inputList, buttonEl) {
