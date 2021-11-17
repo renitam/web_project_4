@@ -7,7 +7,22 @@ const formValidationConfig = {
   errorClass: "modal__input-error"
 }
 
-class FormValidator {
+function hideInputError (modalEl, inputEl, settings) {
+  const errorEl = modalEl.querySelector("."+settings.errorClass+"_"+inputEl.id);
+  inputEl.classList.remove(settings.inputErrorClass);
+  errorEl.textContent = "";
+  errorEl.classList.remove(settings.errorClass+"_active");
+}
+
+export function resetValidation(modal, settings = formValidationConfig) {
+  const inputs = modal.querySelectorAll(settings.inputSel);
+
+  inputs.forEach( (input) => {
+    hideInputError(modal, input, settings);
+  });
+}
+
+export class FormValidator {
   constructor(config = formValidationConfig, formEl) {
     this._inputSel = config.inputSel;
     this._submitBtnSel = config.submitBtnSel;
@@ -71,7 +86,13 @@ class FormValidator {
     _setEventListeners();
   }
 
-}
+  resetValidation(modal, settings = formValidationConfig) {
+    const inputs = modal.querySelectorAll(settings.inputSel);
 
-export { FormValidator };
+    inputs.forEach( (input) => {
+      hideInputError(modal, input, settings);
+    });
+  }
+
+}
 

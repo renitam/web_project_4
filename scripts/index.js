@@ -1,5 +1,5 @@
 import { FormValidator } from "./FormValidator.js";
-import { resetValidation } from "./validate.js";
+// import { resetValidation } from "./validate.js";
 
 // Variables
 
@@ -90,7 +90,7 @@ function openModal(modal) {
 function closeModal(modal) {
   modal.classList.remove("modal_display");
   document.removeEventListener("keydown", escModal);
-  resetValidation(modal);
+//  resetValidation(modal);
 }
 
 // Close card modal w/o saving

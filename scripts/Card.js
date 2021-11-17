@@ -1,6 +1,6 @@
 // Classes
 
-class Card {
+export class Card {
   constructor(data, templateSel) {
     this._templateSel = templateSel;
     this._name = data.name;
@@ -54,14 +54,10 @@ class Card {
       .querySelector(".card__image")
       .addEventListener("click", openImgPreview);
 
-    cardsContainer.prepend(this._cardEl);
+    document.querySelector(".cards").prepend(this._cardEl);
   }
 
-  _addCard() {
 
-  }
 
 
 }
-
-export default Card;
