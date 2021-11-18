@@ -1,5 +1,4 @@
-import { FormValidator } from "./FormValidator.js";
-// import { resetValidation } from "./validate.js";
+import FormValidator from "./FormValidator.js";
 
 // Variables
 
@@ -90,7 +89,10 @@ function openModal(modal) {
 function closeModal(modal) {
   modal.classList.remove("modal_display");
   document.removeEventListener("keydown", escModal);
-//  resetValidation(modal);
+
+  modal.classList.contains("modal_type_card") ?
+    addFormValidator.resetValidation() :
+    editFormValidator.resetValidation();
 }
 
 // Close card modal w/o saving
@@ -235,7 +237,7 @@ const formValidationConfig = {
 }
 
 const addFormValidator = new FormValidator(formValidationConfig, modalCard);
-addFormValidator.enableValidation;
+addFormValidator.enableValidation();
 
 const editFormValidator = new FormValidator(formValidationConfig, modalProfile);
-editFormValidator.enableValidation;
+editFormValidator.enableValidation();
