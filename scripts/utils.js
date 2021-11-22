@@ -1,15 +1,13 @@
 import FormValidator from "./FormValidator.js";
-import Card from "./Card.js";
 
 // Constants
 
+export const allModals = document.querySelectorAll(".modal");
 export const modalProfile = document.querySelector(".modal_type_profile");
 export const modalCard = document.querySelector(".modal_type_card");
 export const modalPreview = document.querySelector(".modal_type_preview");
 export const previewCaption = modalPreview.querySelector(".modal__caption");
-export const previewImg = modalPreview
-  .querySelector(".modal__body_type_preview")
-  .querySelector(".modal__image");
+export const previewImg = modalPreview.querySelector(".modal__image");
 
 export const closeModalBtns = document.querySelectorAll(".modal__close-btn");
 
@@ -72,21 +70,6 @@ export function openCardForm() {
   openModal(modalCard);
 }
 
-export function openImgPreview(evt) {
-  //Idk how to set up the attr the reviewer suggested here, so leaving as is.
-  const cardTitle = evt.target
-    .closest(".card")
-    .querySelector(".card__title");
-  const cardImg = evt.target;
-
-  previewImg.src = cardImg.src;
-  // Using title for alt since title already describes > why alt is left out
-  previewImg.alt = evt.target.alt;
-  previewCaption.textContent = cardTitle.textContent;
-
-  openModal(modalPreview);
-}
-
 // Submit new profile name and job title and close menu
 export function handleProfileSubmit(evt) {
   evt.preventDefault();
@@ -109,6 +92,21 @@ export function handleCardSubmit(evt) {
 
   closeModal(modalCard);
 }
+
+
+
+// Make modal close button clickable
+closeModalBtns.forEach((button) => {
+  button.addEventListener("click", useCloseBtn);
+});
+
+allModals.forEach( (modal) => {
+  modal.addEventListener("click", (evt) => {
+    if (evt.target.classList.contains(".modal")) {
+      closeModal(modal);
+    }
+  });
+});
 
 // Validation calls
 export const formValidationConfig = {

@@ -1,6 +1,12 @@
 
 import * as utils from "./utils.js";
 
+// Global constants used for _handlePreview function.
+const modalPreview = document.querySelector(".modal_type_preview");
+const previewCaption = modalPreview.querySelector(".modal__caption");
+const previewImg = modalPreview.querySelector(".modal__image");
+
+
 // Open modal window element
 export function openModal(modal) {
   modal.classList.add("modal_display");
@@ -53,13 +59,15 @@ class Card {
     evt.target.closest(".card").remove();
   }
 
-  _handlePreview () {
+  _handlePreview (evt) {
     // Pull preview modal elements from utils.js constant exports
-    utils.previewImg.src = this._cardImgEl.src;
-    utils.previewImg.alt = this._cardImg.alt;
-    utils.previewCaption.textContent = this._cardTitleEl.textContent;
+    const _cardImg = evt.target;
+    const _cardTitle = _cardImg.closest(".card").querySelector(".card__title");
+    previewImg.src = _cardImg.src;
+    previewImg.alt = _cardImg.alt;
+    previewCaption.textContent = _cardTitle.textContent;
 
-    utils.openModal(utils.modalPreview);
+    utils.openModal(modalPreview);
   }
 
   _setEventListeners() {
