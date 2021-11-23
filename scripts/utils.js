@@ -1,4 +1,5 @@
 import FormValidator from "./FormValidator.js";
+import Card from "./Card.js";
 
 // Constants
 
@@ -11,7 +12,7 @@ export const previewImg = modalPreview.querySelector(".modal__image");
 
 export const closeModalBtns = document.querySelectorAll(".modal__close-btn");
 
-const profile = document.querySelector(".profile");
+export const profile = document.querySelector(".profile");
 const formCardEl = modalCard.querySelector(".modal__form_type_card");
 const formProfileEl = modalProfile.querySelector(".modal__form_type_profile");
 
@@ -93,8 +94,6 @@ export function handleCardSubmit(evt) {
   closeModal(modalCard);
 }
 
-
-
 // Make modal close button clickable
 closeModalBtns.forEach((button) => {
   button.addEventListener("click", useCloseBtn);
@@ -102,10 +101,12 @@ closeModalBtns.forEach((button) => {
 
 allModals.forEach( (modal) => {
   modal.addEventListener("click", (evt) => {
-    if (evt.target.classList.contains(".modal")) {
+    if (evt.target.classList.contains("modal")) {
       closeModal(modal);
     }
   });
+
+  document.addEventListener("keydown", escModal);
 });
 
 // Validation calls
