@@ -6,5 +6,5 @@
 }
 
 .card__image:hover {
-  cursor: url(../../../images/hover.png), pointer;
+  cursor: pointer;
 }

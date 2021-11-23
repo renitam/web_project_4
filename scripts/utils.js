@@ -6,20 +6,16 @@ import Card from "./Card.js";
 export const allModals = document.querySelectorAll(".modal");
 export const modalProfile = document.querySelector(".modal_type_profile");
 export const modalCard = document.querySelector(".modal_type_card");
-export const modalPreview = document.querySelector(".modal_type_preview");
-export const previewCaption = modalPreview.querySelector(".modal__caption");
-export const previewImg = modalPreview.querySelector(".modal__image");
 
 export const closeModalBtns = document.querySelectorAll(".modal__close-btn");
 
 export const profile = document.querySelector(".profile");
-const formCardEl = modalCard.querySelector(".modal__form_type_card");
 const formProfileEl = modalProfile.querySelector(".modal__form_type_profile");
 
-const nameInput = formProfileEl.querySelector("input[name='name']");
-const jobInput = formProfileEl.querySelector("input[name='career']");
-const nameField = profile.querySelector(".profile__name");
-const jobField = profile.querySelector(".profile__career");
+export const nameInput = formProfileEl.querySelector("input[name='name']");
+export const jobInput = formProfileEl.querySelector("input[name='career']");
+export const nameField = profile.querySelector(".profile__name");
+export const jobField = profile.querySelector(".profile__career");
 const placeInput = modalCard.querySelector("input[name='place']");
 const linkInput = modalCard.querySelector("input[name='image']");
 
@@ -53,23 +49,6 @@ export function useCloseBtn(evt) {
   closeModal(evt.target.closest(".modal"));
 }
 
-//Initialize open modals
-
-// Open edit profile menu
-export function openProfileForm() {
-  // Initialize form values
-  nameInput.value = nameField.textContent;
-  jobInput.value = jobField.textContent;
-
-  // Open modal
-  openModal(modalProfile);
-}
-
-// Open add card modal
-export function openCardForm() {
-  formCardEl.reset();
-  openModal(modalCard);
-}
 
 // Submit new profile name and job title and close menu
 export function handleProfileSubmit(evt) {

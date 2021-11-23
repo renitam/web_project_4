@@ -43,17 +43,34 @@ const initialCards = [
 
 // Scripts
 
+//Initialize open modals
+
+// Open edit profile menu
+function openProfileForm() {
+  // Initialize form values
+  utils.nameInput.value = utils.nameField.textContent;
+  utils.jobInput.value = utils.jobField.textContent;
+
+  // Open modal
+  utils.openModal(utils.modalProfile);
+}
+
+// Open add card modal
+function openCardForm() {
+  formCardEl.reset();
+  utils.openModal(utils.modalCard);
+}
 
 
 // When user clicks Esc, close modal window.
 
 //Profile calls
 formProfileEl.addEventListener("submit", utils.handleProfileSubmit);
-editProfileBtn.addEventListener("click", utils.openProfileForm);
+editProfileBtn.addEventListener("click", openProfileForm);
 
 //Card calls
  //initialCards.reverse().forEach( (card) => createCard(card));
-addCardBtn.addEventListener("click", utils.openCardForm);
+addCardBtn.addEventListener("click", openCardForm);
 formCardEl.addEventListener("submit", utils.handleCardSubmit);
 
 

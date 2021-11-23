@@ -7,30 +7,6 @@ const previewCaption = modalPreview.querySelector(".modal__caption");
 const previewImg = modalPreview.querySelector(".modal__image");
 
 
-// Open modal window element
-export function openModal(modal) {
-  modal.classList.add("modal_display");
-  document.addEventListener("keydown", utils.escModal);
-}
-
-// Close modal when clicked outside form
-export function closeModal(modal) {
-  modal.classList.remove("modal_display");
-  document.removeEventListener("keydown", utils.escModal);
-
-  modal.classList.contains("modal_type_card") ?
-    utils.addFormValidator.resetValidation() :
-    utils.editFormValidator.resetValidation();
-}
-
-// Close modal when esc key is pressed
-export function escModal(evt) {
-  const openModal = document.querySelector(".modal_display");
-  if (evt.key === "Escape") {
-    utils.closeModal(openModal);
-  }
-}
-
 // Classes
 
 class Card {
@@ -38,7 +14,6 @@ class Card {
     this._templateSel = templateSel;
     this._name = data.name;
     this._link = data.link;
-    this.isLiked = false;
   }
 
   _getTemplate() {
@@ -50,16 +25,15 @@ class Card {
     return cardTemplate;
   }
 
-  _handleLike (evt) {
+  _handleLike(evt) {
     evt.target.classList.toggle("card__like_active");
-    this.isLiked = !this.isLiked;
   }
 
-  _handleTrash (evt) {
+  _handleTrash(evt) {
     evt.target.closest(".card").remove();
   }
 
-  _handlePreview (evt) {
+  _handlePreview(evt) {
     // Pull preview modal elements from utils.js constant exports
     const _cardImg = evt.target;
     const _cardTitle = _cardImg.closest(".card").querySelector(".card__title");
@@ -88,13 +62,13 @@ class Card {
     this._cardEl = this._getTemplate();
 
     // Set title to name input
-    this._cardTitleEl = this._cardEl.querySelector(".card__title");
-    this._cardTitleEl.textContent = this._name;
+    const _cardTitleEl = this._cardEl.querySelector(".card__title");
+    _cardTitleEl.textContent = this._name;
 
     // Set image to link input
     this._cardImgEl = this._cardEl.querySelector(".card__image");
     this._cardImgEl.src = this._link;
-    this._cardImgEl.alt = "Image of " + this._name;
+    this._cardImgEl.alt = `Image of ${this._name}`;
 
     this._setEventListeners(this._cardEl);
 

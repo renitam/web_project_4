@@ -19,17 +19,17 @@ class FormValidator {
   }
 
   _showInputErr (inputEl, errorMsg) {
-    this._errorEl = this._formEl.querySelector("."+this._errorClass+"_"+inputEl.id);
+    this._errorEl = this._formEl.querySelector(`.${this._errorClass}_${inputEl.id}`);
     inputEl.classList.add(this._inputErrClass);
     this._errorEl.textContent = errorMsg;
-    this._errorEl.classList.add(this._errorClass+"_active");
+    this._errorEl.classList.add(`${this._errorClass}_active`);
   }
 
   _hideInputErr (inputEl) {
-    this._errorEl = this._formEl.querySelector("."+this._errorClass+"_"+inputEl.id);
+    this._errorEl = this._formEl.querySelector(`.${this._errorClass}_${inputEl.id}`);
     inputEl.classList.remove(this._inputErrClass);
     this._errorEl.textContent = "";
-    this._errorEl.classList.remove(this._errorClass+"_active");
+    this._errorEl.classList.remove(`${this._errorClass}_active`);
   }
 
   _checkInputValidity (inputEl) {
@@ -46,13 +46,15 @@ class FormValidator {
     });
   }
 
+  /* set and remove attribute calls break script when 2nd arg is removed
+  leaving as is considering, despite reviewer instructions */
   _toggleBtnState (inputList, buttonEl) {
     if (this._hasInvalidInput(inputList)) {
       buttonEl.classList.add(this._inactiveBtnClass);
       buttonEl.setAttribute("disabled", "");
     } else {
       buttonEl.classList.remove(this._inactiveBtnClass);
-      buttonEl.removeAttribute("disabled", "");
+      buttonEl.removeAttribute("disabled");
     }
   }
 
