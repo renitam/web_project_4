@@ -72,7 +72,7 @@ class Card {
 
     this._setEventListeners(this._cardEl);
 
-    document.querySelector(".cards").prepend(this._cardEl);
+    return this._cardEl;
   }
 
 }

@@ -100,7 +100,7 @@ function handleCardSubmit(evt) {
   const cardDetails = { name: placeInput.value, link: linkInput.value };
 
   const newCard = new Card(cardDetails, "#card");
-  newCard.createCard();
+  document.querySelector(".cards").prepend(newCard.createCard());
 
   utils.closeModal(modalCard);
 }
@@ -151,5 +151,5 @@ formCardEl.addEventListener("submit", handleCardSubmit);
 
 initialCards.reverse().forEach( (card) => {
   const newCard = new Card(card, "#card");
-  newCard.createCard();
+  document.querySelector(".cards").prepend(newCard.createCard());
 })
