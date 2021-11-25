@@ -29,6 +29,8 @@ const formCardEl = modalCard.querySelector(".modal__form_type_card");
 const placeInput = modalCard.querySelector("input[name='place']");
 const linkInput = modalCard.querySelector("input[name='image']");
 
+const cardContainer = document.querySelector(".cards");
+
 
 
 
@@ -100,9 +102,13 @@ function handleCardSubmit(evt) {
   const cardDetails = { name: placeInput.value, link: linkInput.value };
 
   const newCard = new Card(cardDetails, "#card");
-  document.querySelector(".cards").prepend(newCard.createCard());
+  renderCard(newCard.createCard());
 
   utils.closeModal(modalCard);
+}
+
+function renderCard(card) {
+  cardContainer.prepend(card);
 }
 
 // Make modal close button clickable
@@ -151,5 +157,5 @@ formCardEl.addEventListener("submit", handleCardSubmit);
 
 initialCards.reverse().forEach( (card) => {
   const newCard = new Card(card, "#card");
-  document.querySelector(".cards").prepend(newCard.createCard());
+  renderCard(newCard.createCard());
 })
