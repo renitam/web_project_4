@@ -72,6 +72,7 @@ function openProfileForm() {
   // Initialize form values
   nameInput.value = nameField.textContent;
   jobInput.value = jobField.textContent;
+  editFormValidator.resetValidation();
 
   // Open modal
   utils.openModal(modalProfile);
@@ -80,6 +81,7 @@ function openProfileForm() {
 // Open add card modal
 function openCardForm() {
   formCardEl.reset();
+  addFormValidator.resetValidation();
   utils.openModal(modalCard);
 }
 
