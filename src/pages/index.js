@@ -1,6 +1,6 @@
-import * as utils from "../scripts/utils.js";
-import Card from "../scripts/Card.js";
-import FormValidator from "../scripts/FormValidator.js";
+import * as utils from "../components/utils.js";
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
 
 
 // Variables
