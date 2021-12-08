@@ -23,9 +23,7 @@
   },
   "homepage": "https://github.com/xxengineer-practicum/web_project_4#readme",
   "dependencies": {
-    "core-js": "^3.19.2",
-    "cssnano": "^5.0.12",
-    "package.json": "^2.0.1"
+    "core-js": "^3.19.2"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
@@ -40,6 +38,8 @@
     "postcss-loader": "^6.2.1",
     "webpack": "^5.64.4",
     "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.6.0"
+    "webpack-dev-server": "^4.6.0",
+    "cssnano": "^5.0.12",
+    "package.json": "^2.0.1"
   }
 }

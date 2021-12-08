@@ -2,6 +2,7 @@ import "./index.css";
 
 import Card from "../components/Card";
 import FormValidator from "../components/FormValidator";
+import { initialCards } from "../components/initialCards";
 import PopupWithForm from "../components/PopupWithForm";
 import Section from "../components/Section";
 import UserInfo from "../components/UserInfo";
@@ -22,42 +23,15 @@ const formValidationConfig = {
   errorClass: "modal__input-error"
 }
 
-//Card initialization values
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://code.s3.yandex.net/web-code/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://code.s3.yandex.net/web-code/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://code.s3.yandex.net/web-code/lago.jpg",
-  },
-];
-//
+const cardRenderer = item => {
+  const newCard = new Card(item, "#card").createCard();
+  cardContainer.addItem(newCard);
+}
 
 // Create card container using Section class
 const cardContainer = new Section({
-  data: initialCards,
-  renderer: item => {
-    const newCard = new Card(item, "#card").createCard();
-    cardContainer.addItem(newCard);
-    }
+  data: initialCards.reverse(),
+  renderer: cardRenderer
   },
   ".cards"
 );
@@ -74,7 +48,6 @@ const modalProfile = new PopupWithForm({
   handleSubmit: evt => {
     evt.preventDefault();
     profileInfo.setUserInfo(modalProfile.getInputValues());
-    modalProfile.close();
   },
   handleOpen: () => {
     const { name, career } = profileInfo.getUserInfo();
@@ -92,13 +65,14 @@ editProfileBtn.addEventListener("click", modalProfile.open);
 // Create add card classes and initialize add card form validation.
 
 // const modal
+
+// Note to reviewer: not sure how to remedy removing handleOpen w/o creating
+// new classes so leaving as is.
 const modalCard = new PopupWithForm({
   handleSubmit: evt => {
     evt.preventDefault();
     const cardDetails = modalCard.getInputValues();
-    const newCard = new Card(cardDetails, "#card").createCard();
-    cardContainer.addNewItem(newCard);
-    modalCard.close();
+    cardRenderer(cardDetails);
   },
   handleOpen: () => {
     formCardEl.reset();
