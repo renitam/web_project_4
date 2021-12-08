@@ -1,11 +1,4 @@
-import * as utils from "./utils.js";
-// import Popup from "./Popup.js";
-
-// Global constants used for _handlePreview function.
-const modalPreview = document.querySelector(".modal_type_preview");
-const previewCaption = modalPreview.querySelector(".modal__caption");
-const previewImg = modalPreview.querySelector(".modal__image");
-
+import PopupWithImage from "./PopupWithImage";
 
 // Classes
 
@@ -14,6 +7,7 @@ class Card {
     this._templateSel = templateSel;
     this._name = data.name;
     this._link = data.link;
+    this._handlePreview = this._handlePreview.bind(this);
   }
 
   _getTemplate() {
@@ -33,15 +27,10 @@ class Card {
     evt.target.closest(".card").remove();
   }
 
-  _handlePreview(evt) {
+  _handlePreview() {
     // Pull preview modal elements from utils.js constant exports
-    const _cardImg = evt.target;
-    const _cardTitle = _cardImg.closest(".card").querySelector(".card__title");
-    previewImg.src = _cardImg.src;
-    previewImg.alt = _cardImg.alt;
-    previewCaption.textContent = _cardTitle.textContent;
-
-    utils.openModal(modalPreview);
+    this._preview = new PopupWithImage(".modal_type_preview");
+    this._preview.open(this._link, this._name);
   }
 
   _setEventListeners() {
@@ -62,8 +51,8 @@ class Card {
     this._cardEl = this._getTemplate();
 
     // Set title to name input
-    const _cardTitleEl = this._cardEl.querySelector(".card__title");
-    _cardTitleEl.textContent = this._name;
+    this._cardTitleEl = this._cardEl.querySelector(".card__title");
+    this._cardTitleEl.textContent = this._name;
 
     // Set image to link input
     this._cardImgEl = this._cardEl.querySelector(".card__image");
