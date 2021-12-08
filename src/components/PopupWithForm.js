@@ -5,7 +5,7 @@ class PopupWithForm extends Popup {
     super(popupSelector);
     this._handleSubmit = handleSubmit;
     this._handleOpen = handleOpen;
-    this.inputList = this.popupElement.querySelectorAll(".modal__input");
+    this.inputList = this._popupElement.querySelectorAll(".modal__input");
   }
 
   open() {
@@ -28,7 +28,7 @@ class PopupWithForm extends Popup {
 
   _setEventListeners() {
     super._setEventListeners();
-    this.popupElement.addEventListener("submit", this._handleSubmit);
+    this._popupElement.addEventListener("submit", this._handleSubmit);
   }
 }
 

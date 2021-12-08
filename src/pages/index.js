@@ -101,7 +101,7 @@ const modalCard = new PopupWithForm({
     modalCard.close();
   },
   handleOpen: () => {
-    modalCard.popupElement.querySelector(".modal__form").reset();
+    formCardEl.reset();
     addFormValidator.resetValidation();
   }
 },
