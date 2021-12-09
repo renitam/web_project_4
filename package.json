@@ -39,7 +39,6 @@
     "webpack": "^5.64.4",
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.6.0",
-    "cssnano": "^5.0.12",
-    "package.json": "^2.0.1"
+    "cssnano": "^5.0.12"
   }
 }

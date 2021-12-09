@@ -2,7 +2,7 @@ import "./index.css";
 
 import Card from "../components/Card";
 import FormValidator from "../components/FormValidator";
-import { initialCards } from "../components/initialCards";
+import { initialCards } from "../utils/initialCards";
 import PopupWithForm from "../components/PopupWithForm";
 import Section from "../components/Section";
 import UserInfo from "../components/UserInfo";
@@ -23,7 +23,7 @@ const formValidationConfig = {
   errorClass: "modal__input-error"
 }
 
-const cardRenderer = item => {
+const renderCard = item => {
   const newCard = new Card(item, "#card").createCard();
   cardContainer.addItem(newCard);
 }
@@ -31,7 +31,7 @@ const cardRenderer = item => {
 // Create card container using Section class
 const cardContainer = new Section({
   data: initialCards.reverse(),
-  renderer: cardRenderer
+  renderer: renderCard
   },
   ".cards"
 );
@@ -50,33 +50,30 @@ const modalProfile = new PopupWithForm({
     profileInfo.setUserInfo(modalProfile.getInputValues());
   },
   handleOpen: () => {
-    const { name, career } = profileInfo.getUserInfo();
-    modalProfile.inputList[0].value = name;
-    modalProfile.inputList[1].value = career;
-    editFormValidator.resetValidation();
+
   }
 }, ".modal_type_profile");
 
 const editFormValidator = new FormValidator(formValidationConfig, formProfileEl);
 editFormValidator.enableValidation();
 
-editProfileBtn.addEventListener("click", modalProfile.open);
+editProfileBtn.addEventListener("click", () => {
+  const { name, career } = profileInfo.getUserInfo();
+  modalProfile.inputList[0].value = name;
+  modalProfile.inputList[1].value = career;
+  editFormValidator.resetValidation();
+  modalProfile.open();
+});
 
 // Create add card classes and initialize add card form validation.
 
 // const modal
 
-// Note to reviewer: not sure how to remedy removing handleOpen w/o creating
-// new classes so leaving as is.
 const modalCard = new PopupWithForm({
   handleSubmit: evt => {
     evt.preventDefault();
     const cardDetails = modalCard.getInputValues();
-    cardRenderer(cardDetails);
-  },
-  handleOpen: () => {
-    formCardEl.reset();
-    addFormValidator.resetValidation();
+    renderCard(cardDetails);
   }
 },
 ".modal_type_card");
@@ -84,7 +81,11 @@ const modalCard = new PopupWithForm({
 export const addFormValidator = new FormValidator(formValidationConfig, formCardEl);
 addFormValidator.enableValidation();
 
-addCardBtn.addEventListener("click", modalCard.open);
+addCardBtn.addEventListener("click", () => {
+  formCardEl.reset();
+  addFormValidator.resetValidation();
+  modalCard.open();
+});
 
 
 
