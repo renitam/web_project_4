@@ -1,17 +1,18 @@
-import "./index.css";
+import "./index.css"
 
-import Card from "../components/Card";
-import FormValidator from "../components/FormValidator";
-import { initialCards } from "../utils/initialCards";
-import PopupWithForm from "../components/PopupWithForm";
-import Section from "../components/Section";
-import UserInfo from "../components/UserInfo";
+import Card from "../components/Card"
+import FormValidator from "../components/FormValidator"
+import { initialCards } from "../utils/initialCards"
+import PopupWithForm from "../components/PopupWithForm"
+import Section from "../components/Section"
+import UserInfo from "../components/UserInfo"
+import Api from "../components/Api"
 
 // Variables
-const editProfileBtn = document.querySelector(".profile__edit-btn");
-const addCardBtn = document.querySelector(".profile__add-btn");
-const formProfileEl = document.querySelector(".modal__form_type_profile");
-const formCardEl = document.querySelector(".modal__form_type_card");
+const editProfileBtn = document.querySelector(".profile__edit-btn")
+const addCardBtn = document.querySelector(".profile__add-btn")
+const formProfileEl = document.querySelector(".modal__form_type_profile")
+const formCardEl = document.querySelector(".modal__form_type_card")
 
 const formValidationConfig = {
   formSel: ".modal__form",
@@ -23,46 +24,38 @@ const formValidationConfig = {
 }
 
 const renderCard = item => {
-  const newCard = new Card(item, "#card").createCard();
-  cardContainer.addItem(newCard);
+  const newCard = new Card(item, "#card").createCard()
+  cardContainer.addItem(newCard)
 }
 
 // Create card container using Section class
-const cardContainer = new Section({
-  data: initialCards.reverse(),
-  renderer: renderCard
-  },
-  ".cards"
-);
-
-// Render the initial card list.
-cardContainer.renderItems();
+const cardContainer = new Section(".cards")
 
 // Scripts
 
 // Create profile classes and initialize edit profile form validation.
-const profileInfo = new UserInfo({ nameSelector: ".profile__name", careerSelector: ".profile__career"});
+const profileInfo = new UserInfo({ nameSelector: ".profile__name", careerSelector: ".profile__career"})
 
 const modalProfile = new PopupWithForm({
   handleSubmit: evt => {
-    evt.preventDefault();
-    profileInfo.setUserInfo(modalProfile.getInputValues());
+    evt.preventDefault()
+    profileInfo.setUserInfo(modalProfile.getInputValues())
   },
   handleOpen: () => {
 
   }
-}, ".modal_type_profile");
+}, ".modal_type_profile")
 
-const editFormValidator = new FormValidator(formValidationConfig, formProfileEl);
-editFormValidator.enableValidation();
+const editFormValidator = new FormValidator(formValidationConfig, formProfileEl)
+editFormValidator.enableValidation()
 
 editProfileBtn.addEventListener("click", () => {
-  const { name, career } = profileInfo.getUserInfo();
-  modalProfile.inputList[0].value = name;
-  modalProfile.inputList[1].value = career;
-  editFormValidator.resetValidation();
-  modalProfile.open();
-});
+  const { name, career } = profileInfo.getUserInfo()
+  modalProfile.inputList[0].value = name
+  modalProfile.inputList[1].value = career
+  editFormValidator.resetValidation()
+  modalProfile.open()
+})
 
 // Create add card classes and initialize add card form validation.
 
@@ -70,41 +63,33 @@ editProfileBtn.addEventListener("click", () => {
 
 const modalCard = new PopupWithForm({
   handleSubmit: evt => {
-    evt.preventDefault();
-    const cardDetails = modalCard.getInputValues();
-    renderCard(cardDetails);
+    evt.preventDefault()
+    const cardDetails = modalCard.getInputValues()
+    renderCard(cardDetails)
   }
 },
-".modal_type_card");
+".modal_type_card")
 
-export const addFormValidator = new FormValidator(formValidationConfig, formCardEl);
-addFormValidator.enableValidation();
+export const addFormValidator = new FormValidator(formValidationConfig, formCardEl)
+addFormValidator.enableValidation()
 
 addCardBtn.addEventListener("click", () => {
-  formCardEl.reset();
-  addFormValidator.resetValidation();
-  modalCard.open();
-});
+  formCardEl.reset()
+  addFormValidator.resetValidation()
+  modalCard.open()
+})
 
 
 // Api calls
 
-const baseUrl = "https://around.nomoreparties.co/v1";
-const groupID = "group-11";
-const authToken = "dd03cd11-47a0-450d-9165-34e32dd702c6";
+const baseUrl = "https://around.nomoreparties.co/v1"
+const groupID = "group-11"
+const authToken = "dd03cd11-47a0-450d-9165-34e32dd702c6"
+
+const api = new Api({baseUrl, groupID, authToken})
 
 // Pull initial cards
-fetch(`${baseUrl}/${groupID}/cards`, {
-  headers: {
-    authorization: authToken
-  }
-})
-  .then(res => res.json())
-  .then(cards => {
-    cards.forEach(card => {
-      renderCard(card);
-    });
-  });
+api.getInitialCards(renderCard)
 
 // Pull user info using authToken
 fetch(`${baseUrl}/${groupID}/users/me`, {
@@ -114,8 +99,8 @@ fetch(`${baseUrl}/${groupID}/users/me`, {
 })
   .then(res => res.json())
   .then((result) => {
-    console.log(result);
-  });
+    console.log(result)
+  })
 
 
 
