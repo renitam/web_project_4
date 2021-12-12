@@ -8,7 +8,6 @@ import Section from "../components/Section";
 import UserInfo from "../components/UserInfo";
 
 // Variables
-
 const editProfileBtn = document.querySelector(".profile__edit-btn");
 const addCardBtn = document.querySelector(".profile__add-btn");
 const formProfileEl = document.querySelector(".modal__form_type_profile");
@@ -87,6 +86,36 @@ addCardBtn.addEventListener("click", () => {
   modalCard.open();
 });
 
+
+// Api calls
+
+const baseUrl = "https://around.nomoreparties.co/v1";
+const groupID = "group-11";
+const authToken = "dd03cd11-47a0-450d-9165-34e32dd702c6";
+
+// Pull initial cards
+fetch(`${baseUrl}/${groupID}/cards`, {
+  headers: {
+    authorization: authToken
+  }
+})
+  .then(res => res.json())
+  .then(cards => {
+    cards.forEach(card => {
+      renderCard(card);
+    });
+  });
+
+// Pull user info using authToken
+fetch(`${baseUrl}/${groupID}/users/me`, {
+  headers: {
+    authorization: authToken
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    console.log(result);
+  });
 
 
 
