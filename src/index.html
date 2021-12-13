@@ -18,16 +18,20 @@
     <main>
       <section class="profile">
         <div class="profile__content">
-          <img src=<%=require('./images/profile-pic.jpg')%> alt="Profile
-          picture" class="profile__avatar" />
+          <img
+            src="#"
+            alt="Profile
+          picture"
+            class="profile__avatar"
+          />
           <div class="profile__info">
-            <h1 class="profile__name">Jacques Cousteau</h1>
+            <h1 class="profile__name"></h1>
             <button
               type="button"
               class="profile__edit-btn link"
               aria-label="open edit profile menu"
             ></button>
-            <p class="profile__career">Explorer</p>
+            <p class="profile__career"></p>
           </div>
         </div>
         <button type="button" class="profile__add-btn link"></button>
@@ -99,6 +103,43 @@
             />
             <span class="modal__input-error modal__input-error_image"></span>
             <button type="submit" class="modal__save">Create</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="modal modal_type_pic">
+        <div class="modal__body">
+          <form class="modal__form modal__form_type_pic" name="pic">
+            <button
+              type="button"
+              class="modal__close-btn link"
+              aria-label="close profile pic menu"
+            ></button>
+            <h2 class="modal__title">Change profile picture</h2>
+            <input
+              type="url"
+              name="link"
+              id="pic"
+              class="modal__input"
+              placeholder="Image link"
+              required
+            />
+            <span class="modal__input-error modal__input-error_image"></span>
+            <button type="submit" class="modal__save">Save</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="modal modal_type_trash">
+        <div class="modal__body">
+          <form class="modal__form modal__form_type_trash" name="delete">
+            <button
+              type="button"
+              class="modal__close-btn link"
+              aria-label="close delete card menu"
+            ></button>
+            <h2 class="modal__title">Are you sure?</h2>
+            <button type="submit" class="modal__save">Yes</button>
           </form>
         </div>
       </section>

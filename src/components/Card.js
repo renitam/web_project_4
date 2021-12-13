@@ -1,12 +1,24 @@
+import PopupWithForm from "./PopupWithForm"
 import PopupWithImage from "./PopupWithImage"
+import Api from "./Api"
 
 // Classes
 
 class Card {
   constructor(data, templateSel) {
     this._templateSel = templateSel
+    this._cardEl = this._getTemplate()
     this._name = data.name
     this._link = data.link
+    this._likes = data.likes
+    this._owner = data.owner
+    this._id = data._id
+
+    this._likeButton = this._cardEl.querySelector(".card__like")
+    this._trashButton = this._cardEl.querySelector(".card__trash")
+
+    this._handleLike = this._handleLike.bind(this)
+    this._handleTrash = this._handleTrash.bind(this)
     this._handlePreview = this._handlePreview.bind(this)
   }
 
@@ -19,12 +31,13 @@ class Card {
     return cardTemplate
   }
 
-  _handleLike(evt) {
-    evt.target.classList.toggle("card__like_active")
+  _handleLike() {
+    this._likeButton.classList.toggle("card__like_active")
+
   }
 
-  _handleTrash(evt) {
-    evt.target.closest(".card").remove()
+  _handleTrash() {
+    this._trashButton.closest(".card").remove()
   }
 
   _handlePreview() {
@@ -35,11 +48,11 @@ class Card {
 
   _setEventListeners() {
     // Make card like buttons clickable & save like
-    this._cardEl.querySelector(".card__like")
+    this._likeButton
       .addEventListener("click", this._handleLike)
 
     // Make trash cans clickable and remove card
-    this._cardEl.querySelector(".card__trash")
+    this._trashButton
       .addEventListener("click", this._handleTrash)
 
     // Make images clickable and view image preview
@@ -48,8 +61,6 @@ class Card {
   }
 
   createCard() {
-    this._cardEl = this._getTemplate()
-
     // Set title to name input
     this._cardTitleEl = this._cardEl.querySelector(".card__title")
     this._cardTitleEl.textContent = this._name
@@ -60,8 +71,7 @@ class Card {
     this._cardImgEl.alt = `Image of ${this._name}`
 
     this._cardImgEl.onerror = () => {
-      this._cardImgEl.src = "https://i.redd.it/fhm7gz5xmtb41.jpg"
-      this._cardImgEl.style.opacity = 0.5
+      this._cardImgEl.src = "https://memegenerator.net/img/instances/60573683.jpg"
     }
 
     this._setEventListeners(this._cardEl)

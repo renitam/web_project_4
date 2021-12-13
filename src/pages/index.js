@@ -7,7 +7,8 @@ import Section from "../components/Section"
 import UserInfo from "../components/UserInfo"
 import Api from "../components/Api"
 
-// Variables
+// Variables //
+
 const editProfileBtn = document.querySelector(".profile__edit-btn")
 const addCardBtn = document.querySelector(".profile__add-btn")
 const formProfileEl = document.querySelector(".modal__form_type_profile")
@@ -30,46 +31,45 @@ const renderCard = item => {
 // Create card container using Section class
 const cardContainer = new Section(".cards")
 
-// Scripts
+// Modals //
 
-// Create profile classes and initialize edit profile form validation.
-const profileInfo = new UserInfo({ nameSelector: ".profile__name", careerSelector: ".profile__career"})
+// Edit Profile Modal: Create profile classes and initialize edit profile form validation.
+const profileInfo = new UserInfo({
+  nameSelector: ".profile__name",
+  careerSelector: ".profile__career",
+  picSelector: ".profile__avatar"})
 
 const modalProfile = new PopupWithForm({
   handleSubmit: evt => {
     evt.preventDefault()
     profileInfo.setUserInfo(modalProfile.getInputValues())
+    }
   },
-  handleOpen: () => {
-
-  }
-}, ".modal_type_profile")
+  ".modal_type_profile")
 
 const editFormValidator = new FormValidator(formValidationConfig, formProfileEl)
 editFormValidator.enableValidation()
 
 editProfileBtn.addEventListener("click", () => {
   const { name, career } = profileInfo.getUserInfo()
-  modalProfile.inputList[0].value = name
-  modalProfile.inputList[1].value = career
+  document.querySelector("#name").value = name
+  document.querySelector("#career").value = career
   editFormValidator.resetValidation()
   modalProfile.open()
 })
 
-// Create add card classes and initialize add card form validation.
-
-// const modal
+// Add Card Modal: Create add card classes and initialize add card form validation.
 
 const modalCard = new PopupWithForm({
   handleSubmit: evt => {
     evt.preventDefault()
     const cardDetails = modalCard.getInputValues()
     renderCard(cardDetails)
-  }
-},
-".modal_type_card")
+    }
+  },
+  ".modal_type_card")
 
-export const addFormValidator = new FormValidator(formValidationConfig, formCardEl)
+const addFormValidator = new FormValidator(formValidationConfig, formCardEl)
 addFormValidator.enableValidation()
 
 addCardBtn.addEventListener("click", () => {
@@ -78,8 +78,18 @@ addCardBtn.addEventListener("click", () => {
   modalCard.open()
 })
 
+// Trash Modal: Confirm whether user truly wants to delete a card and send delete request.
 
-// Api calls
+// const modalTrash = new PopupWithForm({
+//   handleSubmit: evt => {
+//     evt.preventDefault()
+
+//   }
+// },
+// ".modal__trash")
+
+
+// Api calls //
 
 const baseUrl = "https://around.nomoreparties.co/v1"
 const groupID = "group-11"
@@ -88,18 +98,24 @@ const authToken = "dd03cd11-47a0-450d-9165-34e32dd702c6"
 const api = new Api({baseUrl, groupID, authToken})
 
 // Pull initial cards
-api.getCards(renderCard)
-
-// Pull user info using authToken
-fetch(`${baseUrl}/${groupID}/users/me`, {
-  headers: {
-    authorization: authToken
-  }
-})
-  .then(res => res.json())
-  .then((result) => {
-    console.log(result)
-  })
+// const savedInfo = api.getProfileInfo()
+// api.getCards(renderCard)
 
 
+
+
+// fetch(`https://around.nomoreparties.co/v1/group-11/users/me`, {
+//   headers: {
+//     authorization: "dd03cd11-47a0-450d-9165-34e32dd702c6"
+//   }
+// })
+//   .then(res => res.json())
+//   .then(result => {
+//     console.log(result)
+//   })
+//   .catch(console.log("Error: profile request failed."))
+const owner = api.getProfileInfo()
+debugger
+console.log("Profile get test:")
+console.log(owner)
 

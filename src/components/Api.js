@@ -13,14 +13,12 @@ class Api {
       }
     })
       .then(res => res.json())
-      .then((result) => {
-        this._id = result._id
-        this._name = result._name
-        this._avatar = result._avatar
-        this._about = result._about
-        return result
+      .then(info => {
+        debugger
+        return info})
+      .catch(err => {
+        console.log("Error ${err}: profile request failed.")
       })
-      .catch(console.log("Error: profile request failed."))
   }
 
   // 2 Load cards from server
@@ -32,7 +30,7 @@ class Api {
     })
       .then(res => res.json())
       .then(cards => {
-        console.log(cards)
+        // console.log(cards)
         cards.forEach(card => {
           render(card)
         })

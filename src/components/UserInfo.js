@@ -1,7 +1,10 @@
+import Api from "./Api"
+
 class UserInfo {
-  constructor({ nameSelector, careerSelector }) {
+  constructor({ nameSelector, careerSelector, picSelector }) {
     this._nameElement = document.querySelector(nameSelector)
     this._careerElement = document.querySelector(careerSelector)
+    this._picElement = document.querySelector(picSelector)
   }
 
   getUserInfo() {

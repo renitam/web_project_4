@@ -4,15 +4,15 @@ class PopupWithForm extends Popup {
   constructor({ handleSubmit }, popupSelector) {
     super(popupSelector)
     this._handleSubmit = handleSubmit
-    this.inputList = this._popupElement.querySelectorAll(".modal__input")
   }
 
   getInputValues() {
     // Create empty object
+    this._inputList = this._popupElement.querySelectorAll(".modal__input")
     this._formValues = {}
 
     // Add the values of the fields to this object
-    this.inputList.forEach( input => {
+    this._inputList.forEach( input => {
       this._formValues[input.name] = input.value
     })
 
