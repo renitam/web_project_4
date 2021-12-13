@@ -1,7 +1,7 @@
 class UserInfo {
   constructor({ nameSelector, careerSelector }) {
-    this._nameElement = document.querySelector(nameSelector);
-    this._careerElement = document.querySelector(careerSelector);
+    this._nameElement = document.querySelector(nameSelector)
+    this._careerElement = document.querySelector(careerSelector)
   }
 
   getUserInfo() {
@@ -12,9 +12,9 @@ class UserInfo {
   }
 
   setUserInfo({ name, career }) {
-    this._nameElement.textContent = name;
-    this._careerElement.textContent = career;
+    this._nameElement.textContent = name
+    this._careerElement.textContent = career
   }
 }
 
-export default UserInfo;
+export default UserInfo

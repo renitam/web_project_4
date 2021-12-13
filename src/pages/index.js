@@ -2,7 +2,6 @@ import "./index.css"
 
 import Card from "../components/Card"
 import FormValidator from "../components/FormValidator"
-import { initialCards } from "../utils/initialCards"
 import PopupWithForm from "../components/PopupWithForm"
 import Section from "../components/Section"
 import UserInfo from "../components/UserInfo"
@@ -89,7 +88,7 @@ const authToken = "dd03cd11-47a0-450d-9165-34e32dd702c6"
 const api = new Api({baseUrl, groupID, authToken})
 
 // Pull initial cards
-api.getInitialCards(renderCard)
+api.getCards(renderCard)
 
 // Pull user info using authToken
 fetch(`${baseUrl}/${groupID}/users/me`, {
