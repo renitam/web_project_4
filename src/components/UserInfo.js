@@ -1,10 +1,10 @@
 import Api from "./Api"
 
 class UserInfo {
-  constructor({ nameSelector, careerSelector, picSelector }) {
+  constructor({ nameSelector, careerSelector, avatarSelector }) {
     this._nameElement = document.querySelector(nameSelector)
     this._careerElement = document.querySelector(careerSelector)
-    this._picElement = document.querySelector(picSelector)
+    this._avatarElement = document.querySelector(avatarSelector)
   }
 
   getUserInfo() {
@@ -14,9 +14,11 @@ class UserInfo {
     }
   }
 
-  setUserInfo({ name, career }) {
+  setUserInfo({ name, career, avatar }) {
     this._nameElement.textContent = name
     this._careerElement.textContent = career
+    this._avatarElement.src = avatar
+    console.log(this._avatarElement)
   }
 }
 

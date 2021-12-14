@@ -37,7 +37,7 @@ const cardContainer = new Section(".cards")
 const profileInfo = new UserInfo({
   nameSelector: ".profile__name",
   careerSelector: ".profile__career",
-  picSelector: ".profile__avatar"})
+  avatarSelector: ".profile__avatar"})
 
 const modalProfile = new PopupWithForm({
   handleSubmit: evt => {
@@ -63,7 +63,12 @@ editProfileBtn.addEventListener("click", () => {
 const modalCard = new PopupWithForm({
   handleSubmit: evt => {
     evt.preventDefault()
+
+    // Pull in name and link values from form inputs
     const cardDetails = modalCard.getInputValues()
+
+    //Send values to API to create new card
+    api.addCard(cardDetails)
     renderCard(cardDetails)
     }
   },
@@ -91,31 +96,21 @@ addCardBtn.addEventListener("click", () => {
 
 // Api calls //
 
+// Set constants with login information
 const baseUrl = "https://around.nomoreparties.co/v1"
 const groupID = "group-11"
 const authToken = "dd03cd11-47a0-450d-9165-34e32dd702c6"
 
+// Create website api
 const api = new Api({baseUrl, groupID, authToken})
 
+// Pull profile info
+api.getProfileInfo()
+  .then(result => {
+    profileInfo.setUserInfo({name: result.name, career: result.about, avatar: result.avatar})
+    return result
+  })
+  .catch("Error: Profile unavailable.")
+
 // Pull initial cards
-// const savedInfo = api.getProfileInfo()
-// api.getCards(renderCard)
-
-
-
-
-// fetch(`https://around.nomoreparties.co/v1/group-11/users/me`, {
-//   headers: {
-//     authorization: "dd03cd11-47a0-450d-9165-34e32dd702c6"
-//   }
-// })
-//   .then(res => res.json())
-//   .then(result => {
-//     console.log(result)
-//   })
-//   .catch(console.log("Error: profile request failed."))
-const owner = api.getProfileInfo()
-debugger
-console.log("Profile get test:")
-console.log(owner)
-
+api.getCards(renderCard)

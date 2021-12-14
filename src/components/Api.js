@@ -7,18 +7,14 @@ class Api {
 
   // 1 Load user info from server
   getProfileInfo() {
-    fetch(`${this._baseUrl}/${this._groupID}/users/me`, {
+    const info = fetch(`${this._baseUrl}/${this._groupID}/users/me`, {
       headers: {
         authorization: this._authToken
       }
     })
-      .then(res => res.json())
-      .then(info => {
-        debugger
-        return info})
-      .catch(err => {
-        console.log("Error ${err}: profile request failed.")
-      })
+    .then(res => res.json())
+
+    return info
   }
 
   // 2 Load cards from server
