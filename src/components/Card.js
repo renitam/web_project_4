@@ -6,12 +6,12 @@ import { apiSettings } from "../pages/index"
 // Classes
 
 class Card {
-  constructor(data, ownerID, templateSel) {
+  constructor(data, templateSel) {
     this._templateSel = templateSel
     this._name = data.name
     this._link = data.link
     this._likes = data.likes
-    this._ownerID = data.owner._id
+    this._owner = data.owner
     this._id = data._id
 
     this._cardEl = this._getTemplate()
@@ -31,6 +31,7 @@ class Card {
       }
     },
     ".modal_type_trash")
+    this.createCard = this.createCard.bind(this)
   }
 
   _getTemplate() {
@@ -41,7 +42,6 @@ class Card {
   }
 
   _handleLike() {
-
     this._likeButton.classList.toggle("card__like_active")
   }
 
@@ -77,7 +77,7 @@ class Card {
   }
 
   createCard({ me }) {
-    if (this._ownerID != me) {
+    if (this._owner._id != me) {
       this._trashButton.remove()
     }
 

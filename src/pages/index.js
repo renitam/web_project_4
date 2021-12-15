@@ -114,13 +114,13 @@ import Api from "../components/Api"
   // Define the card rendering steps
   function renderCard(item) {
     const ownerID = myProfileInfo.owner._id
-    const newCard = new Card(item, item._id , "#card").createCard({ me: ownerID })
+    const newCard = new Card(item, "#card").createCard({ me: ownerID })
     cardContainer.addItem(newCard)
   }
 
   // Create add card modal and define submit behavior (send card to api then render)
   const modalCard = new PopupWithForm({
-    handleSubmit: evt => {
+    handleSubmit: function (evt) {
       evt.preventDefault()
 
       // Pull in name and link values from form inputs
@@ -128,8 +128,12 @@ import Api from "../components/Api"
 
       //Send values to API to create new card
       api.addCard(cardDetails)
-        .then( renderCard(cardDetails) )
-        .catch(`Could not add card: ${err}`)
+        .then(res => res.json())
+        .then(cardDetails => {
+          renderCard(cardDetails)
+          modalCard.close()
+        })
+        .catch(err => `Could not add card: ${err}`)
 
     }
   },
