@@ -18,12 +18,14 @@
     <main>
       <section class="profile">
         <div class="profile__content">
-          <img
-            src="#"
-            alt="Profile
-          picture"
-            class="profile__avatar"
-          />
+          <div class="profile__avatar-overlay">
+            <img
+              src="#"
+              alt="Profile
+            picture"
+              class="profile__avatar"
+            />
+          </div>
           <div class="profile__info">
             <h1 class="profile__name"></h1>
             <button
@@ -31,7 +33,7 @@
               class="profile__edit-btn link"
               aria-label="open edit profile menu"
             ></button>
-            <p class="profile__career"></p>
+            <p class="profile__about"></p>
           </div>
         </div>
         <button type="button" class="profile__add-btn link"></button>
@@ -60,14 +62,14 @@
             <span class="modal__input-error modal__input-error_name"></span>
             <input
               type="text"
-              name="career"
-              id="career"
+              name="about"
+              id="about"
               class="modal__input"
               minlength="2"
               maxlength="200"
               required
             />
-            <span class="modal__input-error modal__input-error_career"></span>
+            <span class="modal__input-error modal__input-error_about"></span>
             <button type="submit" class="modal__save" id="profile">Save</button>
           </form>
         </div>
@@ -107,9 +109,9 @@
         </div>
       </section>
 
-      <section class="modal modal_type_pic">
+      <section class="modal modal_type_avatar">
         <div class="modal__body">
-          <form class="modal__form modal__form_type_pic" name="pic">
+          <form class="modal__form modal__form_type_avatar" name="avatar">
             <button
               type="button"
               class="modal__close-btn link"
@@ -119,12 +121,12 @@
             <input
               type="url"
               name="link"
-              id="pic"
+              id="avatar"
               class="modal__input"
               placeholder="Image link"
               required
             />
-            <span class="modal__input-error modal__input-error_image"></span>
+            <span class="modal__input-error modal__input-error_avatar"></span>
             <button type="submit" class="modal__save">Save</button>
           </form>
         </div>
