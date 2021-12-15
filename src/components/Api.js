@@ -63,7 +63,7 @@ class Api {
     }
 
   // 4 Add new card to server
-  addCard(name, link) {
+  addCard({ name, link }) {
     const data = fetch(`${this._baseUrl}/${this._groupID}/cards`, {
       method: "POST",
       headers: {

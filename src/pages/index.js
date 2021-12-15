@@ -19,10 +19,10 @@ import Api from "../components/Api"
     errorClass: "modal__input-error"
   }
 
-  function renderCard(item) {
-    const owner = myProfileInfo.owner
-    const newCard = new Card(item, "#card").createCard({ me: owner })
-    cardContainer.addItem(newCard)
+  export const apiSettings = {
+    baseUrl: "https://around.nomoreparties.co/v1",
+    groupID: "group-11",
+    authToken: "dd03cd11-47a0-450d-9165-34e32dd702c6"
   }
 
   // Create card container using Section class
@@ -111,6 +111,14 @@ import Api from "../components/Api"
 
 // Add Card Modal: Create add card classes and initialize add card form validation.
 
+  // Define the card rendering steps
+  function renderCard(item) {
+    const ownerID = myProfileInfo.owner._id
+    const newCard = new Card(item, "#card").createCard({ me: ownerID })
+    cardContainer.addItem(newCard)
+  }
+
+  // Create add card modal and define submit behavior (send card to api then render)
   const modalCard = new PopupWithForm({
     handleSubmit: evt => {
       evt.preventDefault()
@@ -120,7 +128,9 @@ import Api from "../components/Api"
 
       //Send values to API to create new card
       api.addCard(cardDetails)
-      renderCard(cardDetails)
+        .then( renderCard(cardDetails) )
+        .catch(`Could not add card: ${err}`)
+
     }
   },
   ".modal_type_card")
@@ -136,33 +146,10 @@ import Api from "../components/Api"
   })
 //
 
-// Trash Modal: Confirm if user really wants to delete a card
-
-export const modalTrash = new PopupWithForm({
-  handleSubmit: evt => {
-    evt.preventDefault()
-    console.log(api)
-    api.trashCard(evt.target.closest(".card").id)
-      .then(res => {
-        return res.json()
-      })
-      .then(data => console.log(data))
-      .catch(err => {
-        `Could not remove card: ${err}`
-      })
-  }
-},
-".modal__trash")
-
 // Load page: initial API calls //
 
-  // Set constants with login information
-  const baseUrl = "https://around.nomoreparties.co/v1"
-  const groupID = "group-11"
-  const authToken = "dd03cd11-47a0-450d-9165-34e32dd702c6"
-
   // Create website API
-  const api = new Api({baseUrl, groupID, authToken})
+  const api = new Api({baseUrl: apiSettings.baseUrl, groupID: apiSettings.groupID, authToken: apiSettings.authToken})
 
   // Pull profile info
   api.getProfileInfo()

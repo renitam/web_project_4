@@ -1,5 +1,7 @@
 import PopupWithImage from "./PopupWithImage"
-import { modalTrash } from "../pages/index"
+import PopupWithForm from "./PopupWithForm"
+import Api from "./Api"
+import { apiSettings } from "../pages/index"
 
 // Classes
 
@@ -10,13 +12,26 @@ class Card {
     this._link = data.link
     this._likes = data.likes
     this._owner = data.owner
-    this.id = data._id
+    this._id = data._id
 
     this._cardEl = this._getTemplate()
     this._likeButton = this._cardEl.querySelector(".card__like")
     this._trashButton = this._cardEl.querySelector(".card__trash")
 
     this._preview = new PopupWithImage(".modal_type_preview")
+    this._api = new Api({baseUrl: apiSettings.baseUrl, groupID: apiSettings.groupID, authToken: apiSettings.authToken})
+    this._modalTrash = new PopupWithForm({
+      handleSubmit: evt => {
+        evt.preventDefault()
+        console.log(this._cardEl)
+        this._api.trashCard(this._id)
+          .then(this._cardEl.remove())
+          .catch(err => {
+            `Could not remove card: ${err}`
+          })
+      }
+    },
+    ".modal_type_trash")
   }
 
   _getTemplate() {
@@ -32,8 +47,7 @@ class Card {
   }
 
   _handleTrash() {
-
-
+    this._modalTrash.open()
   }
 
   _handlePreview() {
@@ -64,7 +78,7 @@ class Card {
   }
 
   createCard({ me }) {
-    if (this._owner != me) {
+    if (this._owner._id != me) {
       this._trashButton.remove()
     }
 
