@@ -129,10 +129,8 @@ import Api from "../components/Api"
       //Send values to API to create new card
       api.addCard(cardDetails)
         .then(res => res.json())
-        .then(cardDetails => {
-          renderCard(cardDetails)
-          modalCard.close()
-        })
+        .then(cardResponse => renderCard(cardResponse))
+        .then(modalCard.close())
         .catch(err => `Could not add card: ${err}`)
 
     }
