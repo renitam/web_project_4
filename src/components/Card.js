@@ -6,12 +6,12 @@ import { apiSettings } from "../pages/index"
 // Classes
 
 class Card {
-  constructor(data, templateSel) {
+  constructor(data, ownerID, templateSel) {
     this._templateSel = templateSel
     this._name = data.name
     this._link = data.link
     this._likes = data.likes
-    this._owner = data.owner
+    this._ownerID = data.owner._id
     this._id = data._id
 
     this._cardEl = this._getTemplate()
@@ -23,7 +23,6 @@ class Card {
     this._modalTrash = new PopupWithForm({
       handleSubmit: evt => {
         evt.preventDefault()
-        console.log(this._cardEl)
         this._api.trashCard(this._id)
           .then(this._cardEl.remove())
           .catch(err => {
@@ -42,8 +41,8 @@ class Card {
   }
 
   _handleLike() {
-    this._likeButton.classList.toggle("card__like_active")
 
+    this._likeButton.classList.toggle("card__like_active")
   }
 
   _handleTrash() {
@@ -78,7 +77,7 @@ class Card {
   }
 
   createCard({ me }) {
-    if (this._owner._id != me) {
+    if (this._ownerID != me) {
       this._trashButton.remove()
     }
 
