@@ -112,7 +112,7 @@ import Api from "../components/Api"
 // Add Card Modal: Create add card classes and initialize add card form validation.
 
   // Define the card rendering steps
-  function renderCard(item) {
+  const renderCard = (item) => {
     const ownerID = myProfileInfo.owner._id
     const newCard = new Card(item, "#card").createCard({ me: ownerID })
     cardContainer.addItem(newCard)
