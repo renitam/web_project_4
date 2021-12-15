@@ -20,8 +20,8 @@ import Api from "../components/Api"
   }
 
   function renderCard(item) {
-    const owner = profileInfo.owner
-    const newCard = new Card(item, "#card").createCard({ owner: owner })
+    const owner = myProfileInfo.owner
+    const newCard = new Card(item, "#card").createCard({ me: owner })
     cardContainer.addItem(newCard)
   }
 
@@ -29,7 +29,7 @@ import Api from "../components/Api"
   const cardContainer = new Section(".cards")
 
   // Create profile description container class
-  const profileInfo = new UserInfo({
+  const myProfileInfo = new UserInfo({
     nameSelector: ".profile__name",
     aboutSelector: ".profile__about",
     avatarSelector: ".profile__avatar"})
@@ -51,7 +51,7 @@ import Api from "../components/Api"
 
       api.saveProfile(entries)
         .then(res => {
-          profileInfo.setUserInfo(entries)
+          myProfileInfo.setUserInfo(entries)
           modalProfile.close()
         })
         .catch(err => {`Could not edit profile: ${err}`})
@@ -66,7 +66,7 @@ import Api from "../components/Api"
   editFormValidator.enableValidation()
 
   editProfileBtn.addEventListener("click", () => {
-    const { name, about } = profileInfo.getUserInfo()
+    const { name, about } = myProfileInfo.getUserInfo()
     document.querySelector("#name").value = name
     document.querySelector("#about").value = about
     editFormValidator.resetValidation()
@@ -88,7 +88,7 @@ import Api from "../components/Api"
 
       api.saveAvatar(entries.link)
         .then(res => {
-          profileInfo.setUserInfo(entries)
+          myProfileInfo.setUserInfo(entries)
           modalAvatar.close()
         })
         .catch(err => {`Could not edit avatar: ${err}`})
@@ -167,7 +167,7 @@ export const modalTrash = new PopupWithForm({
   // Pull profile info
   api.getProfileInfo()
     .then(info => {
-      profileInfo.setUserInfo({name: info.name, about: info.about, link: info.avatar, id: info._id, owner: info})
+      myProfileInfo.setUserInfo({name: info.name, about: info.about, link: info.avatar, id: info._id, owner: info})
     })
     .catch("Error: Profile unavailable.")
 

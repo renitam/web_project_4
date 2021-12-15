@@ -1,14 +1,5 @@
-const formValidationConfig = {
-  formSel: ".modal__form",
-  inputSel: ".modal__input",
-  submitBtnSel: ".modal__save",
-  inactiveBtnClass: "modal__save_inactive",
-  inputErrClass: "modal__input_type_error",
-  errorClass: "modal__input-error"
-}
-
 class FormValidator {
-  constructor(config = formValidationConfig, formEl) {
+  constructor(config, formEl) {
     this._inputSel = config.inputSel
     this._submitBtnSel = config.submitBtnSel
     this._inactiveBtnClass = config.inactiveBtnClass
@@ -81,6 +72,10 @@ class FormValidator {
   }
 
   resetValidation() {
+    if (this._inputList.length === 1) {
+      Array.from(this._inputList)
+    }
+
     this._inputList.forEach( (input) => {
       this._hideInputErr(input)
     })
