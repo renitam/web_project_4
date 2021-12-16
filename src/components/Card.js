@@ -10,13 +10,14 @@ class Card {
     this._templateSel = templateSel
     this._name = data.name
     this._link = data.link
-    this._likes = data.likes || []
-    this._owner = data.owner || {}
+    this._likes = data.likes
+    this._owner = data.owner
     this._id = data._id
 
     this._cardEl = this._getTemplate()
-    this._likeButton = this._cardEl.querySelector(".card__like")
     this._trashButton = this._cardEl.querySelector(".card__trash")
+    this._likeButton = this._cardEl.querySelector(".card__like")
+    this._likeNumber = this._cardEl.querySelector(".card__like-num")
 
     this._api = new Api({baseUrl: apiSettings.baseUrl, groupID: apiSettings.groupID, authToken: apiSettings.authToken})
     this._preview = new PopupWithImage(".modal_type_preview")
@@ -43,7 +44,17 @@ class Card {
   }
 
   _handleLike() {
-    this._likeButton.classList.toggle("card__like_active")
+    if (this._likeButton.classList.contains("card__like_active")) {
+      this._api.removeLike(this._id)
+          .then(this._likeButton.classList.toggle("card__like_active"))
+          .catch(err => `Could not load like: ${err}`)
+       this._likeNumber.textContent = this._likeNumber.textContent - 1
+    } else {
+      this._api.addLike(this._id)
+          .then(this._likeButton.classList.toggle("card__like_active"))
+          .catch(err => `Could not load like: ${err}`)
+      this._likeNumber.textContent = +this._likeNumber.textContent + 1
+    }
   }
 
   _handleTrash() {
@@ -78,10 +89,6 @@ class Card {
   }
 
   createCard({ me }) {
-    if (this._owner._id != me) {
-      this._trashButton.remove()
-    }
-
     // Set title to name input
     this._cardTitleEl = this._cardEl.querySelector(".card__title")
     this._cardTitleEl.textContent = this._name
@@ -93,6 +100,33 @@ class Card {
 
     this._cardImgEl.onerror = () => {
       this._cardImgEl.src = "https://memegenerator.net/img/instances/60573683.jpg"
+    }
+
+    // Set image likes
+    this._likeNumber.textContent = this._likes.length
+
+    // Added additional if statement so page still loads if owner obj from API returns string instead of obj
+      // First set of calls for if correct object "me" is returned from api
+    if (typeof me === 'object') {
+      // If I don't own card, remove trash button from card
+      if (this._owner._id != me._id) {
+        this._trashButton.remove()
+      }
+
+      // If like array contains my ID, show like button as active
+      if (this._likes.some(e => e._id === me._id)) {
+        this._likeButton.classList.toggle("card__like_active")
+      }
+
+      // Reiterating calls for string object
+    } else {
+      if (this._owner._id != me) {
+        this._trashButton.remove()
+      }
+
+      if (this._likes.some(e => e._id === me)) {
+        this._likeButton.classList.toggle("card__like_active")
+      }
     }
 
     this._setEventListeners(this._cardEl)

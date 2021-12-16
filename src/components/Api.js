@@ -12,7 +12,12 @@ class Api {
         authorization: this._authToken
       }
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        }
+        return Promise.reject(`Error: ${res.status}`)
+      })
 
     return data
   }
@@ -24,7 +29,12 @@ class Api {
         authorization: this._authToken
       }
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        }
+        return Promise.reject(`Error: ${res.status}`)
+      })
 
     return data
   }
@@ -109,7 +119,7 @@ class Api {
     const data = fetch(`${this._baseUrl}/${this._groupID}/cards/likes/${cardId}`, {
       method: "DELETE",
       headers: {
-        authorization: "c56e30dc-2883-4270-a59e-b2f7bae969c6",
+        authorization: this._authToken,
         "Content-Type": "application/json"
       }
     })
