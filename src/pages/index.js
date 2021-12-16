@@ -113,8 +113,8 @@ import Api from "../components/Api"
 
   // Define the card rendering steps
   const renderCard = (item) => {
-    const ownerID = myProfileInfo.owner._id
-    const newCard = new Card(item, "#card").createCard({ me: ownerID })
+    const owner = myProfileInfo.owner
+    const newCard = new Card(item, "#card").createCard({ me: owner._id })
     cardContainer.addItem(newCard)
   }
 
