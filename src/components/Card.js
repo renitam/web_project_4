@@ -18,8 +18,8 @@ class Card {
     this._likeButton = this._cardEl.querySelector(".card__like")
     this._trashButton = this._cardEl.querySelector(".card__trash")
 
-    this._preview = new PopupWithImage(".modal_type_preview")
     this._api = new Api({baseUrl: apiSettings.baseUrl, groupID: apiSettings.groupID, authToken: apiSettings.authToken})
+    this._preview = new PopupWithImage(".modal_type_preview")
     this._modalTrash = new PopupWithForm({
       handleSubmit: evt => {
         evt.preventDefault()
