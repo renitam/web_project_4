@@ -163,7 +163,7 @@ import Api from "../components/Api"
   // Pull initial cards
   api.getInitialCards()
     .then(cards => {
-      // console.log(cards)
+      console.log(cards)
       cards.forEach(card => {
         renderCard(card)
       })

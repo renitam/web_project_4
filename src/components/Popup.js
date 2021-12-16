@@ -4,6 +4,7 @@ class Popup {
     this._handleEsc = this._handleEsc.bind(this)
     this._handleClose = this._handleClose.bind(this)
     this.open = this.open.bind(this)
+    this.close = this.close.bind(this)
   }
 
   _handleEsc(evt) {

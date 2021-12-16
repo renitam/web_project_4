@@ -10,8 +10,8 @@ class Card {
     this._templateSel = templateSel
     this._name = data.name
     this._link = data.link
-    this._likes = data.likes
-    this._owner = data.owner
+    this._likes = data.likes || []
+    this._owner = data.owner || {}
     this._id = data._id
 
     this._cardEl = this._getTemplate()
@@ -23,6 +23,7 @@ class Card {
     this._modalTrash = new PopupWithForm({
       handleSubmit: evt => {
         evt.preventDefault()
+        console.log(this._id)
         this._api.trashCard(this._id)
           .then(this._cardEl.remove())
           .catch(err => {

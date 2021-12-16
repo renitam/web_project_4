@@ -4,6 +4,7 @@ class PopupWithForm extends Popup {
   constructor({ handleSubmit }, popupSelector) {
     super(popupSelector)
     this._handleSubmit = handleSubmit
+    this._submitClose = this._submitClose.bind(this)
   }
 
   getInputValues() {
@@ -20,12 +21,19 @@ class PopupWithForm extends Popup {
     return this._formValues
   }
 
+  _submitClose(evt) {
+    this._handleSubmit(evt)
+    this.close()
+  }
+
   _setEventListeners() {
     super._setEventListeners()
-    this._popupElement.addEventListener("submit", (evt) => {
-      this._handleSubmit(evt)
-      this.close()
-    })
+    this._popupElement.addEventListener("submit", this._submitClose)
+  }
+
+  _removeEventListeners() {
+    super._removeEventListeners()
+    this._popupElement.removeEventListener("submit", this._submitClose)
   }
 }
 
