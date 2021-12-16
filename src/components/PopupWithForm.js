@@ -5,6 +5,8 @@ class PopupWithForm extends Popup {
     super(popupSelector)
     this._handleSubmit = handleSubmit
     this._submitClose = this._submitClose.bind(this)
+
+    this._saveButton = document.querySelector(popupSelector).querySelector(".modal__save")
   }
 
   getInputValues() {
@@ -22,7 +24,12 @@ class PopupWithForm extends Popup {
   }
 
   _submitClose(evt) {
+
+    this._saveButton.innerHTML = "Saving..."
+    console.log(this._saveButton)
     this._handleSubmit(evt)
+    this._saveButton.innerHTML = "Save"
+    console.log(this._saveButton)
     this.close()
   }
 

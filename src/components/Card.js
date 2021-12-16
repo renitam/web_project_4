@@ -24,7 +24,6 @@ class Card {
     this._modalTrash = new PopupWithForm({
       handleSubmit: evt => {
         evt.preventDefault()
-        console.log(this._id)
         this._api.trashCard(this._id)
           .then(this._cardEl.remove())
           .catch(err => {
@@ -48,7 +47,7 @@ class Card {
       this._api.removeLike(this._id)
           .then(this._likeButton.classList.toggle("card__like_active"))
           .catch(err => `Could not load like: ${err}`)
-       this._likeNumber.textContent = this._likeNumber.textContent - 1
+       this._likeNumber.textContent = +this._likeNumber.textContent - 1
     } else {
       this._api.addLike(this._id)
           .then(this._likeButton.classList.toggle("card__like_active"))
@@ -105,8 +104,7 @@ class Card {
     // Set image likes
     this._likeNumber.textContent = this._likes.length
 
-    // Added additional if statement so page still loads if owner obj from API returns string instead of obj
-      // First set of calls for if correct object "me" is returned from api
+    // Added additional if statement so page still loads if owner/me obj from API returns string/null instead of obj
     if (typeof me === 'object') {
       // If I don't own card, remove trash button from card
       if (this._owner._id != me._id) {
@@ -120,13 +118,9 @@ class Card {
 
       // Reiterating calls for string object
     } else {
-      if (this._owner._id != me) {
-        this._trashButton.remove()
-      }
-
-      if (this._likes.some(e => e._id === me)) {
-        this._likeButton.classList.toggle("card__like_active")
-      }
+      console.log("An error occurred during load. Try refreshing the page.")
+      this._trashButton.remove()
+      this._likeButton.setAttribute("disabled", "")
     }
 
     this._setEventListeners(this._cardEl)

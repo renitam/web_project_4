@@ -8,8 +8,6 @@ import UserInfo from "../components/UserInfo"
 import Api from "../components/Api"
 
 // Variables //
-  const addCardBtn = document.querySelector(".profile__add-btn")
-
   const formValidationConfig = {
     formSel: ".modal__form",
     inputSel: ".modal__input",
@@ -39,8 +37,7 @@ import Api from "../components/Api"
 // Modals //
 
 // Edit Profile Info Modal: Create profile classes and initialize edit profile form validation.
-  //
-  const editProfileBtn = document.querySelector(".profile__edit-btn")
+  const modalProfileBtn = document.querySelector(".modal_type_profile").querySelector(".modal__save")
 
   // Create edit profile description modal and set behavior for form submissions
   const modalProfile = new PopupWithForm({
@@ -48,7 +45,6 @@ import Api from "../components/Api"
       evt.preventDefault()
 
       const entries = modalProfile.getInputValues()
-
       api.saveProfile(entries)
         .then(res => {
           myProfileInfo.setUserInfo(entries)
@@ -65,6 +61,7 @@ import Api from "../components/Api"
 
   editFormValidator.enableValidation()
 
+  const editProfileBtn = document.querySelector(".profile__edit-btn")
   editProfileBtn.addEventListener("click", () => {
     const { name, about } = myProfileInfo.getUserInfo()
     document.querySelector("#name").value = name
@@ -141,6 +138,7 @@ import Api from "../components/Api"
   const addFormValidator = new FormValidator(formValidationConfig, formCardEl)
   addFormValidator.enableValidation()
 
+  const addCardBtn = document.querySelector(".profile__add-btn")
   addCardBtn.addEventListener("click", () => {
     formCardEl.reset()
     addFormValidator.resetValidation()

@@ -7,7 +7,7 @@ class Api {
 
   // 1 Load user info from server
   getProfileInfo() {
-    const data = fetch(`${this._baseUrl}/${this._groupID}/users/me`, {
+    return fetch(`${this._baseUrl}/${this._groupID}/users/me`, {
       headers: {
         authorization: this._authToken
       }
@@ -18,13 +18,11 @@ class Api {
         }
         return Promise.reject(`Error: ${res.status}`)
       })
-
-    return data
   }
 
   // 2 Load cards from server
   getInitialCards() {
-    const data = fetch(`${this._baseUrl}/${this._groupID}/cards`, {
+    return fetch(`${this._baseUrl}/${this._groupID}/cards`, {
       headers: {
         authorization: this._authToken
       }
@@ -35,13 +33,11 @@ class Api {
         }
         return Promise.reject(`Error: ${res.status}`)
       })
-
-    return data
   }
 
   // 3 Edit profile info
   saveProfile({ name, about }) {
-    const data = fetch(`${this._baseUrl}/${this._groupID}/users/me`, {
+    return fetch(`${this._baseUrl}/${this._groupID}/users/me`, {
       method: "PATCH",
       headers: {
         authorization: this._authToken,
@@ -52,13 +48,11 @@ class Api {
         about: about
       })
     })
-
-    return data
   }
 
     // 9 Update profile pic in server
     saveAvatar(link) {
-      const data = fetch(`${this._baseUrl}/${this._groupID}/users/me/avatar`, {
+      return fetch(`${this._baseUrl}/${this._groupID}/users/me/avatar`, {
         method: "PATCH",
         headers: {
           authorization: this._authToken,
@@ -68,13 +62,11 @@ class Api {
           avatar: link
         })
       })
-
-      return data
     }
 
   // 4 Add new card to server
   addCard({ name, link }) {
-    const data = fetch(`${this._baseUrl}/${this._groupID}/cards`, {
+    return fetch(`${this._baseUrl}/${this._groupID}/cards`, {
       method: "POST",
       headers: {
         authorization: this._authToken,
@@ -85,46 +77,38 @@ class Api {
         link: link
       })
     })
-
-    return data
   }
 
   // 7 Delete card from server
   trashCard(cardId) {
-    const data = fetch(`${this._baseUrl}/${this._groupID}/cards/${cardId}`, {
+    return fetch(`${this._baseUrl}/${this._groupID}/cards/${cardId}`, {
       method: "DELETE",
       headers: {
         authorization: this._authToken
       }
     })
-
-    return data
   }
 
   // 8A Add like to card
   addLike(cardId) {
-    const data = fetch(`${this._baseUrl}/${this._groupID}/cards/likes/${cardId}`, {
+    return fetch(`${this._baseUrl}/${this._groupID}/cards/likes/${cardId}`, {
       method: "PUT",
       headers: {
         authorization: this._authToken,
         "Content-Type": "application/json"
       }
     })
-
-    return data
   }
 
   // 8B Remove like from card
   removeLike(cardId) {
-    const data = fetch(`${this._baseUrl}/${this._groupID}/cards/likes/${cardId}`, {
+    return fetch(`${this._baseUrl}/${this._groupID}/cards/likes/${cardId}`, {
       method: "DELETE",
       headers: {
         authorization: this._authToken,
         "Content-Type": "application/json"
       }
     })
-
-    return data
   }
 
 }
