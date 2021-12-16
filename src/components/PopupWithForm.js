@@ -24,12 +24,16 @@ class PopupWithForm extends Popup {
   }
 
   _submitClose(evt) {
+    if (this._popupSelector != ".modal_type_trash") {
+      this._saveButton.innerHTML = "Saving..."
+    }
 
-    this._saveButton.innerHTML = "Saving..."
-    console.log(this._saveButton)
     this._handleSubmit(evt)
-    this._saveButton.innerHTML = "Save"
-    console.log(this._saveButton)
+
+    if (this._popupSelector != ".modal_type_trash") {
+      this._saveButton.innerHTML = "Save"
+    }
+
     this.close()
   }
 
