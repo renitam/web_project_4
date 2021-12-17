@@ -22,6 +22,10 @@ import Api from "../components/Api"
     groupID: "group-11",
     authToken: "dd03cd11-47a0-450d-9165-34e32dd702c6"
   }
+
+  const updateSaveBtn = (modal) => {
+    modal.saveButton.textContent = "Save"
+  }
 //
 
 
@@ -37,7 +41,7 @@ import Api from "../components/Api"
       api.saveProfile(entries)
         .then(() => {
           myProfileInfo.setUserInfo(entries)
-          modalProfile.saveButton.textContent = "Save"
+          updateSaveBtn(modalProfile)
           modalProfile.close()
         })
         .catch(err => {`Could not edit profile: ${err}`})
@@ -76,9 +80,8 @@ import Api from "../components/Api"
       const entries = modalAvatar.getInputValues()
 
       api.saveAvatar(entries.link)
-        .then(res => {
-          myProfileInfo.setUserInfo(entries)
-          modalAvatar.saveButton.textContent = "Save"
+        .then(() => {
+          myProfileInfo.setAvatar(entries)
           modalAvatar.close()
         })
         .catch(err => {`Could not edit avatar: ${err}`})
@@ -91,10 +94,11 @@ import Api from "../components/Api"
   const avatarValidator = new FormValidator(formValidationConfig, formAvatarEl)
   avatarValidator.enableValidation()
 
-  // Add event listener to profile avatar so it behaves like a link
+  // Add event listener to profile avatar so it behaves like a link; initialize input
   avatarEl.addEventListener("click", () => {
     formAvatarEl.reset()
     avatarValidator.resetValidation()
+    updateSaveBtn(modalAvatar)
     modalAvatar.open()
   })
 //
@@ -130,11 +134,12 @@ import Api from "../components/Api"
   const addFormValidator = new FormValidator(formValidationConfig, formCardEl)
   addFormValidator.enableValidation()
 
+  // Add interaction to add card button and initialize inputs
   const addCardBtn = document.querySelector(".profile__add-btn")
   addCardBtn.addEventListener("click", () => {
     formCardEl.reset()
     addFormValidator.resetValidation()
-    modalCard.saveButton.textContent = "Save"
+    updateSaveBtn(modalCard)
     modalCard.open()
   })
 //
