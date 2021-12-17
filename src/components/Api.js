@@ -5,6 +5,14 @@ class Api {
     this._authToken = options.authToken
   }
 
+  _checkServerCode(res) {
+    if (res.ok) {
+      return res.json()
+    }
+
+    return Promise.reject(`Error: ${res.status}`)
+  }
+
   // 1 Load user info from server
   getProfileInfo() {
     return fetch(`${this._baseUrl}/${this._groupID}/users/me`, {
@@ -12,12 +20,7 @@ class Api {
         authorization: this._authToken
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        }
-        return Promise.reject(`Error: ${res.status}`)
-      })
+      .then(res => this._checkServerCode(res))
   }
 
   // 2 Load cards from server
@@ -27,12 +30,7 @@ class Api {
         authorization: this._authToken
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        }
-        return Promise.reject(`Error: ${res.status}`)
-      })
+      .then(res => this._checkServerCode(res))
   }
 
   // 3 Edit profile info
@@ -48,6 +46,7 @@ class Api {
         about: about
       })
     })
+      .then(res => this._checkServerCode(res))
   }
 
     // 9 Update profile pic in server
@@ -62,6 +61,7 @@ class Api {
           avatar: link
         })
       })
+        .then(res => this._checkServerCode(res))
     }
 
   // 4 Add new card to server
@@ -77,6 +77,7 @@ class Api {
         link: link
       })
     })
+      .then(res => this._checkServerCode(res))
   }
 
   // 7 Delete card from server
@@ -87,6 +88,7 @@ class Api {
         authorization: this._authToken
       }
     })
+      .then(res => this._checkServerCode(res))
   }
 
   // 8A Add like to card
@@ -98,6 +100,7 @@ class Api {
         "Content-Type": "application/json"
       }
     })
+      .then(res => this._checkServerCode(res))
   }
 
   // 8B Remove like from card
@@ -109,6 +112,7 @@ class Api {
         "Content-Type": "application/json"
       }
     })
+      .then(res => this._checkServerCode(res))
   }
 
 }

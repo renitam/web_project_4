@@ -6,18 +6,19 @@ import { apiSettings } from "../pages/index"
 // Classes
 
 class Card {
-  constructor(data, templateSel) {
+  constructor(data, me, templateSel) {
     this._templateSel = templateSel
+    this.userData = me
     this._name = data.name
     this._link = data.link
     this._likes = data.likes
     this._owner = data.owner
     this._id = data._id
 
-    this._cardEl = this._getTemplate()
-    this._trashButton = this._cardEl.querySelector(".card__trash")
-    this._likeButton = this._cardEl.querySelector(".card__like")
-    this._likeNumber = this._cardEl.querySelector(".card__like-num")
+    this.card = this._getTemplate()
+    this._trashButton = this.card.querySelector(".card__trash")
+    this._likeButton = this.card.querySelector(".card__like")
+    this._likeNumber = this.card.querySelector(".card__like-num")
 
     this._api = new Api({baseUrl: apiSettings.baseUrl, groupID: apiSettings.groupID, authToken: apiSettings.authToken})
     this._preview = new PopupWithImage(".modal_type_preview")
@@ -25,7 +26,7 @@ class Card {
       handleSubmit: evt => {
         evt.preventDefault()
         this._api.trashCard(this._id)
-          .then(this._cardEl.remove())
+          .then(this.card.remove())
           .catch(err => {
             `Could not remove card: ${err}`
           })
@@ -47,7 +48,7 @@ class Card {
       this._api.removeLike(this._id)
           .then(this._likeButton.classList.toggle("card__like_active"))
           .catch(err => `Could not load like: ${err}`)
-       this._likeNumber.textContent = +this._likeNumber.textContent - 1
+       this._likeNumber.textContent = this._likeNumber.textContent - 1
     } else {
       this._api.addLike(this._id)
           .then(this._likeButton.classList.toggle("card__like_active"))
@@ -87,13 +88,13 @@ class Card {
       })
   }
 
-  createCard({ me }) {
+  createCard() {
     // Set title to name input
-    this._cardTitleEl = this._cardEl.querySelector(".card__title")
+    this._cardTitleEl = this.card.querySelector(".card__title")
     this._cardTitleEl.textContent = this._name
 
     // Set image to link input
-    this._cardImgEl = this._cardEl.querySelector(".card__image")
+    this._cardImgEl = this.card.querySelector(".card__image")
     this._cardImgEl.src = this._link
     this._cardImgEl.alt = `Image of ${this._name}`
 
@@ -104,15 +105,15 @@ class Card {
     // Set image likes
     this._likeNumber.textContent = this._likes.length
 
-    // Added additional if statement so page still loads if owner/me obj from API returns string/null instead of obj
-    if (typeof me === 'object') {
+    // Added additional if statement so page still loads userData obj from API returns string/null instead of obj
+    if (typeof this.userData === 'object') {
       // If I don't own card, remove trash button from card
-      if (this._owner._id != me._id) {
+      if (this._owner._id != this.userData._id) {
         this._trashButton.remove()
       }
 
       // If like array contains my ID, show like button as active
-      if (this._likes.some(e => e._id === me._id)) {
+      if (this._likes.some(e => e._id === this.userData._id)) {
         this._likeButton.classList.toggle("card__like_active")
       }
 
@@ -123,9 +124,9 @@ class Card {
       this._likeButton.setAttribute("disabled", "")
     }
 
-    this._setEventListeners(this._cardEl)
+    this._setEventListeners(this.card)
 
-    return this._cardEl
+    return this.card
   }
 }
 

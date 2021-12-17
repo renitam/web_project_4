@@ -22,15 +22,6 @@ import Api from "../components/Api"
     groupID: "group-11",
     authToken: "dd03cd11-47a0-450d-9165-34e32dd702c6"
   }
-
-  // Create card container using Section class
-  const cardContainer = new Section(".cards")
-
-  // Create profile description container class
-  const myProfileInfo = new UserInfo({
-    nameSelector: ".profile__name",
-    aboutSelector: ".profile__about",
-    avatarSelector: ".profile__avatar"})
 //
 
 
@@ -44,7 +35,7 @@ import Api from "../components/Api"
 
       const entries = modalProfile.getInputValues()
       api.saveProfile(entries)
-        .then(res => {
+        .then(() => {
           myProfileInfo.setUserInfo(entries)
           modalProfile.saveButton.textContent = "Save"
           modalProfile.close()
@@ -57,14 +48,16 @@ import Api from "../components/Api"
   // Set up validator for edit profile description form inputs
   const formProfileEl = document.querySelector(".modal__form_type_profile")
   const editFormValidator = new FormValidator(formValidationConfig, formProfileEl)
+  const nameInput = document.querySelector("#name")
+  const aboutInput = document.querySelector("#about")
 
   editFormValidator.enableValidation()
 
   const editProfileBtn = document.querySelector(".profile__edit-btn")
   editProfileBtn.addEventListener("click", () => {
     const { name, about } = myProfileInfo.getUserInfo()
-    document.querySelector("#name").value = name
-    document.querySelector("#about").value = about
+    nameInput.value = name
+    aboutInput.value = about
     editFormValidator.resetValidation()
     modalProfile.open()
   })
@@ -110,8 +103,8 @@ import Api from "../components/Api"
 
   // Define the card rendering steps
   const renderCard = (item) => {
-    const owner = myProfileInfo.owner
-    const newCard = new Card(item, "#card").createCard({ me: owner })
+    const myData = myProfileInfo.userData
+    const newCard = new Card(item, myData, "#card").createCard()
     cardContainer.addItem(newCard)
   }
 
@@ -125,12 +118,6 @@ import Api from "../components/Api"
 
       //Send values to API to create new card
       api.addCard(cardDetails)
-        .then(res => {
-          if (res.ok) {
-            return res.json()
-          }
-          return Promise.reject(`Error: ${res.status}`)
-        })
         .then(cardResponse => renderCard(cardResponse))
         .then(modalCard.close())
         .catch(err => `Could not add card: ${err}`)
@@ -157,18 +144,28 @@ import Api from "../components/Api"
   // Create website API
   const api = new Api({baseUrl: apiSettings.baseUrl, groupID: apiSettings.groupID, authToken: apiSettings.authToken})
 
+  // Create profile description container class
+  const myProfileInfo = new UserInfo({
+    nameSelector: ".profile__name",
+    aboutSelector: ".profile__about",
+    avatarSelector: ".profile__avatar"})
+
   // Pull profile info
   api.getProfileInfo()
     .then(info => {
-      myProfileInfo.setUserInfo({name: info.name, about: info.about, link: info.avatar, id: info._id, owner: info})
+      myProfileInfo.setAvatar({link: info.avatar})
+      myProfileInfo.setUserInfo({name: info.name, about: info.about})
+      myProfileInfo.saveUserData(info)
     })
     .catch("Error: Profile unavailable.")
 
-  // Pull initial cards
-  api.getInitialCards()
-    .then(cards => {
-      cards.forEach(card => {
-        renderCard(card)
-      })
-    })
-//
+
+  // Create card container using Section class
+  const cardContainer = new Section({
+    // Pull initial cards and assign to data input
+    data: api.getInitialCards()
+            .then(cards => { return cards }),
+    renderer: renderCard
+   }, ".cards")
+
+  cardContainer.renderItems()

@@ -79,6 +79,8 @@ class FormValidator {
     this._inputList.forEach( (input) => {
       this._hideInputErr(input)
     })
+
+    this._toggleBtnState(this._inputList, this._buttonEl)
   }
 
 }

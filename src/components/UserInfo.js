@@ -12,12 +12,26 @@ class UserInfo {
     }
   }
 
-  setUserInfo({ name = this._nameElement.textContent, about = this._aboutElement.textContent, link = this._avatarElement.src, owner}) {
-    this._nameElement.textContent = name
-    this._aboutElement.textContent = about
-    this._avatarElement.src = link
-    this.owner = owner
+  setUserInfo({ name = this._nameElement.textContent, about = this._aboutElement.textContent }) {
+    if (name) {
+      this._nameElement.textContent = name
+    }
+
+    if (about) {
+      this._aboutElement.textContent = about
+    }
   }
+
+  setAvatar({ link = this._avatarElement.src }) {
+    if (link) {
+      this._avatarElement.src = link
+    }
+  }
+
+  saveUserData(data) {
+    this.userData = data
+  }
+
 }
 
 export default UserInfo
