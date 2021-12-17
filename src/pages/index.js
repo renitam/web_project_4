@@ -37,8 +37,6 @@ import Api from "../components/Api"
 // Modals //
 
 // Edit Profile Info Modal: Create profile classes and initialize edit profile form validation.
-  const modalProfileBtn = document.querySelector(".modal_type_profile").querySelector(".modal__save")
-
   // Create edit profile description modal and set behavior for form submissions
   const modalProfile = new PopupWithForm({
     handleSubmit: evt => {
@@ -48,6 +46,7 @@ import Api from "../components/Api"
       api.saveProfile(entries)
         .then(res => {
           myProfileInfo.setUserInfo(entries)
+          modalProfile.saveButton.textContent = "Save"
           modalProfile.close()
         })
         .catch(err => {`Could not edit profile: ${err}`})
@@ -86,6 +85,7 @@ import Api from "../components/Api"
       api.saveAvatar(entries.link)
         .then(res => {
           myProfileInfo.setUserInfo(entries)
+          modalAvatar.saveButton.textContent = "Save"
           modalAvatar.close()
         })
         .catch(err => {`Could not edit avatar: ${err}`})
@@ -117,7 +117,7 @@ import Api from "../components/Api"
 
   // Create add card modal and define submit behavior (send card to api then render)
   const modalCard = new PopupWithForm({
-    handleSubmit: function (evt) {
+    handleSubmit: (evt) => {
       evt.preventDefault()
 
       // Pull in name and link values from form inputs
@@ -125,7 +125,12 @@ import Api from "../components/Api"
 
       //Send values to API to create new card
       api.addCard(cardDetails)
-        .then(res => res.json())
+        .then(res => {
+          if (res.ok) {
+            return res.json()
+          }
+          return Promise.reject(`Error: ${res.status}`)
+        })
         .then(cardResponse => renderCard(cardResponse))
         .then(modalCard.close())
         .catch(err => `Could not add card: ${err}`)
@@ -142,6 +147,7 @@ import Api from "../components/Api"
   addCardBtn.addEventListener("click", () => {
     formCardEl.reset()
     addFormValidator.resetValidation()
+    modalCard.saveButton.textContent = "Save"
     modalCard.open()
   })
 //

@@ -6,7 +6,7 @@ class PopupWithForm extends Popup {
     this._handleSubmit = handleSubmit
     this._submitClose = this._submitClose.bind(this)
 
-    this._saveButton = document.querySelector(popupSelector).querySelector(".modal__save")
+    this.saveButton = document.querySelector(popupSelector).querySelector(".modal__save")
   }
 
   getInputValues() {
@@ -25,15 +25,10 @@ class PopupWithForm extends Popup {
 
   _submitClose(evt) {
     if (this._popupSelector != ".modal_type_trash") {
-      this._saveButton.innerHTML = "Saving..."
+      this.saveButton.textContent = "Saving..."
     }
 
     this._handleSubmit(evt)
-
-    if (this._popupSelector != ".modal_type_trash") {
-      this._saveButton.innerHTML = "Save"
-    }
-
     this.close()
   }
 
