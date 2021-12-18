@@ -12,7 +12,7 @@ class UserInfo {
     }
   }
 
-  setUserInfo({ name = this._nameElement.textContent, about = this._aboutElement.textContent }) {
+  setUserInfo({ name, about }) {
     if (name) {
       this._nameElement.textContent = name
     }
@@ -22,7 +22,7 @@ class UserInfo {
     }
   }
 
-  setAvatar({ link = this._avatarElement.src }) {
+  setAvatar({ link }) {
     if (link) {
       this._avatarElement.src = link
     }

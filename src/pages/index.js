@@ -107,7 +107,6 @@ import Api from "../components/Api"
 
   // Define the card rendering steps
   const renderCard = (item) => {
-    const myData = myProfileInfo.userData
     const newCard = new Card(item, myData, "#card").createCard()
     cardContainer.addItem(newCard)
   }
@@ -149,28 +148,29 @@ import Api from "../components/Api"
   // Create website API
   const api = new Api({baseUrl: apiSettings.baseUrl, groupID: apiSettings.groupID, authToken: apiSettings.authToken})
 
+  // Create card container using Section class
+  const cardContainer = new Section({
+    // Pull initial cards and assign to data input
+    data: null,
+    renderer: renderCard
+   }, ".cards")
+
   // Create profile description container class
   const myProfileInfo = new UserInfo({
     nameSelector: ".profile__name",
     aboutSelector: ".profile__about",
     avatarSelector: ".profile__avatar"})
 
-  // Pull profile info
-  api.getProfileInfo()
-    .then(info => {
-      myProfileInfo.setAvatar({link: info.avatar})
-      myProfileInfo.setUserInfo({name: info.name, about: info.about})
-      myProfileInfo.saveUserData(info)
+  let myData = null
+
+  // Pull profile info then render cards in card container
+  Promise.all([api.getInitialCards(), api.getProfileInfo()])
+    .then( ([initialCards, userInfo]) => {
+      myData = userInfo
+      cardContainer.items = initialCards
+      cardContainer.renderItems()
+      myProfileInfo.setAvatar({link: myData.avatar})
+      myProfileInfo.setUserInfo({name: myData.name, about: myData.about})
     })
-    .catch("Error: Profile unavailable.")
-
-
-  // Create card container using Section class
-  const cardContainer = new Section({
-    // Pull initial cards and assign to data input
-    data: api.getInitialCards()
-            .then(cards => { return cards }),
-    renderer: renderCard
-   }, ".cards")
-
-  cardContainer.renderItems()
+    .catch(err => `Unable to load data: ${err}`)
+//

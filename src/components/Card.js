@@ -33,7 +33,6 @@ class Card {
       }
     },
     ".modal_type_trash")
-    this.createCard = this.createCard.bind(this)
   }
 
   _getTemplate() {
@@ -105,23 +104,14 @@ class Card {
     // Set image likes
     this._likeNumber.textContent = this._likes.length
 
-    // Added additional if statement so page still loads userData obj from API returns string/null instead of obj
-    if (typeof this.userData === 'object') {
-      // If I don't own card, remove trash button from card
-      if (this._owner._id != this.userData._id) {
-        this._trashButton.remove()
-      }
-
-      // If like array contains my ID, show like button as active
-      if (this._likes.some(e => e._id === this.userData._id)) {
-        this._likeButton.classList.toggle("card__like_active")
-      }
-
-      // Reiterating calls for string object
-    } else {
-      console.log("An error occurred during load. Try refreshing the page.")
+    // If I don't own card, remove trash button from card
+    if (this._owner._id != this.userData._id) {
       this._trashButton.remove()
-      this._likeButton.setAttribute("disabled", "")
+    }
+
+    // If like array contains my ID, show like button as active
+    if (this._likes.some(e => e._id === this.userData._id)) {
+      this._likeButton.classList.toggle("card__like_active")
     }
 
     this._setEventListeners(this.card)
