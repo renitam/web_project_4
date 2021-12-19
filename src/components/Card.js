@@ -1,12 +1,12 @@
 class Card {
   constructor(data, templateSel, myData, api, modalPreview, modalTrash) {
     this._templateSel = templateSel
-    this.userData = myData
+    this._userData = myData
     this._name = data.name
     this._link = data.link
     this._likes = data.likes
     this._owner = data.owner
-    this.id = data._id
+    this._id = data._id
 
     this._card = this._getTemplate()
     this._trashButton = this._card.querySelector(".card__trash")
@@ -33,18 +33,18 @@ class Card {
 
   _handleLike() {
     if (this._likeButton.classList.contains("card__like_active")) {
-      this._api.removeLike(this.id)
+      this._api.removeLike(this._id)
           .then(res => this._processLike(res))
           .catch(err => `Could not load like: ${err}`)
     } else {
-      this._api.addLike(this.id)
+      this._api.addLike(this._id)
           .then(res => this._processLike(res))
           .catch(err => `Could not load like: ${err}`)
     }
   }
 
   _handleTrash() {
-    this._trash.open(this._card, this.id)
+    this._trash.open(this._card, this._id)
   }
 
   _handlePreview() {
@@ -92,12 +92,12 @@ class Card {
     this._likeNumber.textContent = this._likes.length
 
     // If I don't own _card, remove trash button from card
-    if (this._owner._id != this.userData._id) {
+    if (this._owner._id != this._userData._id) {
       this._trashButton.remove()
     }
 
     // If like array contains my ID, show like button as active
-    if (this._likes.some(e => e._id === this.userData._id)) {
+    if (this._likes.some(e => e._id === this._userData._id)) {
       this._likeButton.classList.toggle("card__like_active")
     }
 

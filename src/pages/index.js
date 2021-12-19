@@ -163,7 +163,6 @@ import Api from "../components/Api"
 //
 
 // Preview Card Modal: Create preview modal when card is clicked
-
   const modalPreview = new PopupWithImage(".modal_type_preview")
 //
 
