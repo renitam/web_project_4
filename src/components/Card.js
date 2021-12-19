@@ -1,5 +1,5 @@
 class Card {
-  constructor(data, templateSel, myData, api, modalPreview, modalTrash) {
+  constructor(data, templateSel, myData, handleAddLike, handleRemoveLike, modalPreview, modalTrash) {
     this._templateSel = templateSel
     this._userData = myData
     this._name = data.name
@@ -13,7 +13,8 @@ class Card {
     this._likeButton = this._card.querySelector(".card__like")
     this._likeNumber = this._card.querySelector(".card__like-num")
 
-    this._api = api
+    this._handleAddLike = handleAddLike
+    this._handleRemoveLike = handleRemoveLike
     this._preview = modalPreview
     this._trash = modalTrash
   }
@@ -33,13 +34,13 @@ class Card {
 
   _handleLike() {
     if (this._likeButton.classList.contains("card__like_active")) {
-      this._api.removeLike(this._id)
-          .then(res => this._processLike(res))
-          .catch(err => `Could not load like: ${err}`)
+      this._handleRemoveLike(this._id)
+        .then(res => this._processLike(res))
+        .catch(err => `Could not load like: ${err}`)
     } else {
-      this._api.addLike(this._id)
-          .then(res => this._processLike(res))
-          .catch(err => `Could not load like: ${err}`)
+      this._handleAddLike(this._id)
+        .then(res => this._processLike(res))
+        .catch(err => `Could not load like: ${err}`)
     }
   }
 

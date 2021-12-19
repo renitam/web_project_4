@@ -24,10 +24,6 @@ import Api from "../components/Api"
     groupID: "group-11",
     authToken: "dd03cd11-47a0-450d-9165-34e32dd702c6"
   }
-
-  const updateSaveBtn = (modal) => {
-    modal.saveButton.textContent = "Save"
-  }
 //
 
 
@@ -38,13 +34,14 @@ import Api from "../components/Api"
   const modalProfile = new PopupWithForm({
     handleSubmit: evt => {
       evt.preventDefault()
+      modalProfile.handleLoading()
 
       const entries = modalProfile.getInputValues()
       api.saveProfile(entries)
         .then(() => {
           myProfileInfo.setUserInfo(entries)
-          updateSaveBtn(modalProfile)
           modalProfile.close()
+          modalProfile.handleLoading()
         })
         .catch(err => {`Could not edit profile: ${err}`})
       }
@@ -78,13 +75,14 @@ import Api from "../components/Api"
   const modalAvatar = new PopupWithForm({
     handleSubmit: evt => {
       evt.preventDefault()
+      modalAvatar.handleLoading()
 
       const entries = modalAvatar.getInputValues()
-
       api.saveAvatar(entries.link)
         .then(() => {
           myProfileInfo.setAvatar(entries)
           modalAvatar.close()
+          modalAvatar.handleLoading()
         })
         .catch(err => {`Could not edit avatar: ${err}`})
     }
@@ -100,16 +98,23 @@ import Api from "../components/Api"
   avatarEl.addEventListener("click", () => {
     formAvatarEl.reset()
     avatarValidator.resetValidation()
-    updateSaveBtn(modalAvatar)
     modalAvatar.open()
   })
 //
 
 // Add Card Modal: Create add card classes and initialize add card form validation.
+  // Define like handle
+  const handleAddLike = (cardId) => {
+    return api.addLike(cardId)
+  }
+
+  const handleRemoveLike = (cardId) => {
+    return api.removeLike(cardId)
+  }
 
   // Define the card rendering steps
   const renderCard = (item) => {
-    const newCard = new Card(item, "#card", myData, api, modalPreview, modalTrash).createCard()
+    const newCard = new Card(item, "#card", myData, handleAddLike, handleRemoveLike, modalPreview, modalTrash).createCard()
     cardContainer.addItem(newCard)
   }
 
@@ -117,14 +122,17 @@ import Api from "../components/Api"
   const modalCard = new PopupWithForm({
     handleSubmit: (evt) => {
       evt.preventDefault()
+      modalCard.handleLoading()
 
       // Pull in name and link values from form inputs
       const cardDetails = modalCard.getInputValues()
-
       //Send values to API to create new card
       api.addCard(cardDetails)
-        .then(cardResponse => renderCard(cardResponse))
-        .then(modalCard.close())
+        .then(cardResponse => {
+          renderCard(cardResponse)
+          modalCard.close()
+        })
+        .then(modalCard.handleLoading())
         .catch(err => `Could not add card: ${err}`)
 
     }
@@ -140,7 +148,6 @@ import Api from "../components/Api"
   addCardBtn.addEventListener("click", () => {
     formCardEl.reset()
     addFormValidator.resetValidation()
-    updateSaveBtn(modalCard)
     modalCard.open()
   })
 //
