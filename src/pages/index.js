@@ -2,7 +2,9 @@ import "./index.css"
 
 import Card from "../components/Card"
 import FormValidator from "../components/FormValidator"
+import PopupDelete from "../components/PopupDelete"
 import PopupWithForm from "../components/PopupWithForm"
+import PopupWithImage from "../components/PopupWithImage"
 import Section from "../components/Section"
 import UserInfo from "../components/UserInfo"
 import Api from "../components/Api"
@@ -17,7 +19,7 @@ import Api from "../components/Api"
     errorClass: "modal__input-error"
   }
 
-  export const apiSettings = {
+  const apiSettings = {
     baseUrl: "https://around.nomoreparties.co/v1",
     groupID: "group-11",
     authToken: "dd03cd11-47a0-450d-9165-34e32dd702c6"
@@ -107,7 +109,7 @@ import Api from "../components/Api"
 
   // Define the card rendering steps
   const renderCard = (item) => {
-    const newCard = new Card(item, myData, "#card").createCard()
+    const newCard = new Card(item, "#card", myData, api, modalPreview, modalTrash).createCard()
     cardContainer.addItem(newCard)
   }
 
@@ -143,6 +145,28 @@ import Api from "../components/Api"
   })
 //
 
+// Trash Card Modal: Create trash modal when trash button is clicked
+
+  // Send card to api to remove
+  const modalTrash = new PopupDelete({
+    handleSubmit: evt => {
+      evt.preventDefault()
+      api.trashCard(modalTrash.id)
+        .then(modalTrash.card.remove())
+        .then(modalTrash.close())
+        .catch(err => {
+          `Could not remove card: ${err}`
+        })
+    }
+  },
+  ".modal_type_trash")
+//
+
+// Preview Card Modal: Create preview modal when card is clicked
+
+  const modalPreview = new PopupWithImage(".modal_type_preview")
+//
+
 // Load page: initial API calls //
 
   // Create website API
@@ -153,13 +177,14 @@ import Api from "../components/Api"
     // Pull initial cards and assign to data input
     data: null,
     renderer: renderCard
-   }, ".cards")
+  }, ".cards")
 
   // Create profile description container class
   const myProfileInfo = new UserInfo({
     nameSelector: ".profile__name",
     aboutSelector: ".profile__about",
-    avatarSelector: ".profile__avatar"})
+    avatarSelector: ".profile__avatar"
+  })
 
   let myData = null
 
