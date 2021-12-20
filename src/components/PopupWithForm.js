@@ -22,8 +22,6 @@ class PopupWithForm extends Popup {
     }
   }
 
-  // Leaving this public since I'm unable to pass evt.preventDefault() if I pass inputs through handleSubmit
-  // This is from a previous sprint, so I'm not understanding why this needs to be changed now.
   _getInputValues() {
     // Create empty object
     this._inputList = this._popupElement.querySelectorAll(".modal__input")
