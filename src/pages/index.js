@@ -119,7 +119,6 @@ import Api from "../components/Api"
   // Create add card modal and define submit behavior (send card to api then render)
   const modalCard = new PopupWithForm({
     handleSubmit: inputs => {
-      debugger
       modalCard.handleLoading()
 
       //Send values to API to create new card
