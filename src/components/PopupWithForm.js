@@ -24,7 +24,7 @@ class PopupWithForm extends Popup {
 
   // Leaving this public since I'm unable to pass evt.preventDefault() if I pass inputs through handleSubmit
   // This is from a previous sprint, so I'm not understanding why this needs to be changed now.
-  getInputValues() {
+  _getInputValues() {
     // Create empty object
     this._inputList = this._popupElement.querySelectorAll(".modal__input")
     this._formValues = {}
@@ -38,14 +38,12 @@ class PopupWithForm extends Popup {
     return this._formValues
   }
 
-  _setEventListeners() {
-    super._setEventListeners()
-    this._popupElement.addEventListener("submit", this._handleSubmit)
-  }
-
-  _removeEventListeners() {
-    super._removeEventListeners()
-    this._popupElement.removeEventListener("submit", this._handleSubmit)
+  setSubmitListener() {
+    this._popupElement.addEventListener("submit", (evt) => {
+      debugger
+      evt.preventDefault()
+      this._handleSubmit(this._getInputValues())
+    })
   }
 }
 

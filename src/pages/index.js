@@ -32,14 +32,12 @@ import Api from "../components/Api"
 // Edit Profile Info Modal: Create profile classes and initialize edit profile form validation.
   // Create edit profile description modal and set behavior for form submissions
   const modalProfile = new PopupWithForm({
-    handleSubmit: evt => {
-      evt.preventDefault()
+    handleSubmit: inputs => {
       modalProfile.handleLoading()
 
-      const entries = modalProfile.getInputValues()
-      api.saveProfile(entries)
+      api.saveProfile(inputs)
         .then(() => {
-          myProfileInfo.setUserInfo(entries)
+          myProfileInfo.setUserInfo(inputs)
           modalProfile.close()
           modalProfile.handleLoading()
         })
@@ -47,6 +45,7 @@ import Api from "../components/Api"
       }
     },
     ".modal_type_profile")
+  modalProfile.setSubmitListener()
 
   // Set up validator for edit profile description form inputs
   const formProfileEl = document.querySelector(".modal__form_type_profile")
@@ -73,14 +72,12 @@ import Api from "../components/Api"
 
   // Create edit avatar modal and set behavior for form submission
   const modalAvatar = new PopupWithForm({
-    handleSubmit: evt => {
-      evt.preventDefault()
+    handleSubmit: inputs => {
       modalAvatar.handleLoading()
 
-      const entries = modalAvatar.getInputValues()
-      api.saveAvatar(entries.link)
+      api.saveAvatar(inputs.link)
         .then(() => {
-          myProfileInfo.setAvatar(entries)
+          myProfileInfo.setAvatar(inputs)
           modalAvatar.close()
           modalAvatar.handleLoading()
         })
@@ -88,6 +85,7 @@ import Api from "../components/Api"
     }
   },
   ".modal_type_avatar")
+  modalAvatar.setSubmitListener()
 
   // Set validator for edit avatar link input
   const formAvatarEl = document.querySelector(".modal__form_type_avatar")
@@ -120,14 +118,12 @@ import Api from "../components/Api"
 
   // Create add card modal and define submit behavior (send card to api then render)
   const modalCard = new PopupWithForm({
-    handleSubmit: (evt) => {
-      evt.preventDefault()
+    handleSubmit: inputs => {
+      debugger
       modalCard.handleLoading()
 
-      // Pull in name and link values from form inputs
-      const cardDetails = modalCard.getInputValues()
       //Send values to API to create new card
-      api.addCard(cardDetails)
+      api.addCard(inputs)
         .then(cardResponse => {
           renderCard(cardResponse)
           modalCard.close()
@@ -138,6 +134,7 @@ import Api from "../components/Api"
     }
   },
   ".modal_type_card")
+  modalCard.setSubmitListener()
 
   const formCardEl = document.querySelector(".modal__form_type_card")
   const addFormValidator = new FormValidator(formValidationConfig, formCardEl)
