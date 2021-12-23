@@ -8,12 +8,6 @@
   transition: opacity 0.2s linear;
 }
 
-@media screen and (max-width: 1023px) {
-  .profile__avatar {
-    margin: 0 auto;
-  }
-}
-
 .profile__avatar:hover {
   opacity: 0.2;
   background-color: #000;
